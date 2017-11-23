@@ -1,0 +1,101 @@
+package mydatabase.android.a13zulu.com.mydatabase.data.source;
+
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import mydatabase.android.a13zulu.com.mydatabase.data.Item;
+
+import static android.support.v4.util.Preconditions.checkNotNull;
+
+/**
+ * Concrete implementation to load items from data source.
+ */
+
+public class ItemsRepository implements ItemsDataSource {
+    private static final String TAG = "ItemsRepository";
+
+    private static ItemsRepository INSTANCE = null;
+
+    private final ItemsDataSource mItemsDataSource;
+
+    /*
+    This variable has package local visibility so it can be accessed from test.]
+     */
+    Map<String, Item> mCachedItems;
+    /*
+    Marks the cache is invalid, to force an update the next time data is requested.
+    This variable has package local visibility so it can be accessed from tests.
+     */
+
+    boolean mCacheIsDirty = false;
+
+    // Prevent direct instantiation.
+    private ItemsRepository(@NonNull ItemsDataSource itemsLocalDataSource) {
+        mItemsDataSource = itemsLocalDataSource;
+    }
+
+    public static ItemsRepository getInstance(ItemsDataSource itemsDataSource) {
+        if (INSTANCE == null) {
+            INSTANCE = new ItemsRepository(itemsDataSource);
+        }
+        return INSTANCE;
+    }
+
+    @Override
+    public void getItems(@NonNull final LoadItemsCallback callback) {
+        Log.d(TAG, "getItems: called");
+        checkNotNull(callback);
+
+        mItemsDataSource.getItems(new LoadItemsCallback() {
+            @Override
+            public void onItemsLoaded(List<Item> items) {
+                callback.onItemsLoaded(new ArrayList<>(items));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
+    }
+
+    @Override
+    public void getItem(@NonNull long itemId, @NonNull final GetItemCallback callback) {
+        checkNotNull(itemId);
+        checkNotNull(callback);
+        Log.d(TAG, "getItem: called");
+
+        mItemsDataSource.getItem(itemId, new GetItemCallback() {
+            @Override
+            public void onItemLoaded(Item item) {
+                callback.onItemLoaded(item);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
+    }
+
+    @Override
+    public void saveItem(@NonNull Item item) {
+        Log.d(TAG, "saveItem: called");
+        //TODO finish
+        mItemsDataSource.saveItem(item);
+    }
+
+    @Override
+    public void refreshItems() {
+        mCacheIsDirty = true;
+    }
+
+    @Override
+    public void deleteItem(@NonNull long itemId) {
+
+    }
+}
