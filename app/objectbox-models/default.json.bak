@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:7065775365928155823",
-      "lastPropertyId": "10:917231477186617611",
+      "lastPropertyId": "9:5784380222995499490",
       "name": "Item",
       "properties": [
         {
@@ -23,11 +23,6 @@
         {
           "id": "4:710184462500705523",
           "name": "itemQuantity"
-        },
-        {
-          "id": "10:917231477186617611",
-          "indexId": "8:4673706811895236725",
-          "name": "storageRoomId"
         }
       ],
       "relations": []
@@ -124,7 +119,7 @@
     }
   ],
   "lastEntityId": "5:7488359736760884556",
-  "lastIndexId": "8:4673706811895236725",
+  "lastIndexId": "7:718974303268294797",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

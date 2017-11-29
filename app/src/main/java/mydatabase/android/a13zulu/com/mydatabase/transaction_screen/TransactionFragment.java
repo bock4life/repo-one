@@ -95,10 +95,4 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
     public void closeTransactionFragment() {
         getDialog().dismiss();
     }
-
-    @Override
-    public void onDestroyView() {
-        Log.d(TAG, "onDestroyView: called");
-        super.onDestroyView();
-    }
 }
