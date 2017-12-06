@@ -8,13 +8,17 @@ import android.util.Log;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import mydatabase.android.a13zulu.com.mydatabase.data.DaoSession;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
 import mydatabase.android.a13zulu.com.mydatabase.data.MyObjectBox;
+import mydatabase.android.a13zulu.com.mydatabase.data.StorageRoom;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
+import mydatabase.android.a13zulu.com.mydatabase.data.source.StorageRoomsDataSource;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.TransactionsDataSource;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
@@ -23,13 +27,14 @@ import static android.support.v4.util.Preconditions.checkNotNull;
  * ObjectBox Database implementation
  */
 
-public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSource{
+public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSource, StorageRoomsDataSource{
     private static final String TAG = "ItemsLocalDataSource";
     private static ItemsLocalDataSource INSTANCE;
     private BoxStore mBoxStore;
     private DaoSession mDaoSession;
     Box<Item> mItemBox;
     Box<ItemTransaction> mTransactionBox;
+    Box<StorageRoom> mStorageRoomBox;
 
 
     private ItemsLocalDataSource(@NonNull Context context){
@@ -40,6 +45,7 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
 
         mItemBox = mBoxStore.boxFor(Item.class);
         mTransactionBox = mBoxStore.boxFor(ItemTransaction.class);
+        mStorageRoomBox = mBoxStore.boxFor(StorageRoom.class);
     }
 
     public static ItemsLocalDataSource getInstance(@NonNull Context context){
@@ -54,6 +60,7 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
      */
     @Override
     public void getItems(@NonNull LoadItemsCallback callback) {
+        //TODO update with relation to StorageRoom
         Log.d(TAG, "getItems: called");
         List<Item> items = mItemBox.getAll();
         if(items.isEmpty()){
@@ -65,20 +72,22 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
 
     @Override
     public void getItem(@NonNull long itemId, @NonNull GetItemCallback callback) {
+        //TODO update with relation to StorageRoom
         Log.d(TAG, "getItem: called");
         callback.onItemLoaded(mItemBox.get(itemId));
     }
 
     @Override
     public void saveItem(@NonNull Item item) {
+        //TODO update with relation to StorageRoom
         Log.d(TAG, "saveItem: called");
         mItemBox.put(item);
 
-        List<Item> itemList = mItemBox.getAll();
-
-        for(int i = 0; i < itemList.size(); i++){
-            Log.d(TAG, "Item: " + itemList.get(i).toString());
-        }
+//        List<Item> itemList = mItemBox.getAll();
+//
+//        for(int i = 0; i < itemList.size(); i++){
+//            Log.d(TAG, "Item: " + itemList.get(i).toString());
+//        }
     }
 
     @Override
@@ -88,6 +97,7 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
 
     @Override
     public void deleteItem(@NonNull long itemId) {
+        //TODO update with relation to StorageRoom
 //        Log.d(TAG, "deleteItem: called");
 //        mItemBox.remove(itemId);//TODO check if correct
     }
@@ -128,4 +138,32 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
 
     }
 
+    /**
+     * StorageRoom operations
+     */
+
+    @Override
+    public void getStorageRooms(@Nonnull LoadStorageRoomsCallback callback) {
+        callback.onStorageRoomsLoader(mStorageRoomBox.getAll());
+    }
+
+    @Override
+    public void getStorageRoom(@Nonnull long storageRoomId, @Nonnull GetStorageRoomCallback callback) {
+        callback.onStorageRoomLoaded(mStorageRoomBox.get(storageRoomId));
+    }
+
+    @Override
+    public void saveStorageRoom(@Nonnull StorageRoom storageRoom) {
+        mStorageRoomBox.put(storageRoom);
+    }
+
+    @Override
+    public void refreshStorageRooms() {
+
+    }
+
+    @Override
+    public void deleteStorageRoom(@Nonnull long storageRoomId) {
+
+    }
 }

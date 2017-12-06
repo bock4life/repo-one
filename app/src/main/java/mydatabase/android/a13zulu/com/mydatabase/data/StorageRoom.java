@@ -1,7 +1,5 @@
 package mydatabase.android.a13zulu.com.mydatabase.data;
 
-import java.util.Date;
-
 import io.objectbox.annotation.Backlink;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
@@ -15,22 +13,24 @@ public class StorageRoom {
 
     String name;
     String description;
-    Date lastAccessed;
+    int backgroundColor;
 
     @Backlink
     public ToMany<Item> mItems;
 
 
-    public StorageRoom(String name, String description, Date lastAccessed) {
+    public StorageRoom(String name, String description, int backgroundColor) {
         this.id = 0;
         this.name = name;
         this.description = description;
-        this.lastAccessed = lastAccessed;
+        this.backgroundColor = backgroundColor;
     }
 
-    public StorageRoom(long id, String name) {
+    public StorageRoom(long id, String name, String description, int backgroundColor) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.backgroundColor = backgroundColor;
     }
 
     public StorageRoom(){
@@ -61,12 +61,12 @@ public class StorageRoom {
         this.description = description;
     }
 
-    public Date getLastAccessed() {
-        return lastAccessed;
+    public int getBackgroundColor() {
+        return backgroundColor;
     }
 
-    public void setLastAccessed(Date lastAccessed) {
-        this.lastAccessed = lastAccessed;
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
     public ToMany<Item> getItems() {

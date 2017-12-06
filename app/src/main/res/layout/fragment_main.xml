@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mydatabase.android.a13zulu.com.mydatabase.main_screen.MainActivityFragment">
+    tools:context="mydatabase.android.a13zulu.com.mydatabase.item_list_screen.ItemListFragment">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/frag_main_fab"

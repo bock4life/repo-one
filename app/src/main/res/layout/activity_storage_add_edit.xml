@@ -24,7 +24,7 @@
 
 
     <FrameLayout
-        android:id="@+id/storage_activity_content_frame"
+        android:id="@+id/storage_addedit_activity_content_frame"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"

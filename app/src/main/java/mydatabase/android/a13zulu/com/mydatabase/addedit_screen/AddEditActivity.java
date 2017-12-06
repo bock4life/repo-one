@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import mydatabase.android.a13zulu.com.mydatabase.Injection;
 import mydatabase.android.a13zulu.com.mydatabase.R;
@@ -71,11 +70,5 @@ public class AddEditActivity extends AppCompatActivity {
                 mAddEditFragment, shouldLoadDataFromRepo, fragmentManager);
 
         mAddEditFragment.setPresenter(mAddEditPresenter);
-    }
-
-    @Override
-    public void onBackPressed() {
-        Log.d(TAG, "onBackPressed: called");
-        super.onBackPressed();
     }
 }

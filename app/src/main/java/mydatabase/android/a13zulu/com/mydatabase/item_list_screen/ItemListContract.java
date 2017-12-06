@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.main_screen;
+package mydatabase.android.a13zulu.com.mydatabase.item_list_screen;
 
 import android.support.annotation.NonNull;
 
@@ -9,10 +9,10 @@ import mydatabase.android.a13zulu.com.mydatabase.BaseView;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 
 /**
- * This specifies the contract between the vew and the presenter
+ * This specifies the contract between the view and the presenter
  */
 
-public interface MainActivityContract {
+public interface ItemListContract {
 
     // Implemented by View
     interface View extends BaseView<UserActionListener> {
@@ -29,7 +29,7 @@ public interface MainActivityContract {
     // Implemented by Presenter
     // Instantiated by View
     interface UserActionListener extends BasePresenter {
-        void result(int requestCode, int resultCode);
+        void result(int requestCode, int resultCode); //TODO implement
         void loadItems(boolean forceUpdate);
         void addNewItem(); // opens blank AddEdit screen
         void openItemDetails(@NonNull Item requestedItem); // opens AddEditScreen with Item details

@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.main_screen;
+package mydatabase.android.a13zulu.com.mydatabase.item_list_screen;
 
 
 import android.app.Activity;
@@ -16,21 +16,21 @@ import static android.support.v4.util.Preconditions.checkNotNull;
 
 
 /**
- * Listens to user actions from the UI ({@link MainActivityFragment}), retrieves the data and updates the
+ * Listens to user actions from the UI ({@link ItemListFragment}), retrieves the data and updates the
  * UI as required.
  */
-public class MainActivityPresenter implements MainActivityContract.UserActionListener {
-    private static final String TAG = "MainActivityPresenter";
+public class ItemListPresenter implements ItemListContract.UserActionListener {
+    private static final String TAG = "ItemListPresenter";
 
     private final ItemsRepository mItemsRepository;
 
-    private final MainActivityContract.View mMainView;
+    private final ItemListContract.View mMainView;
 
     private boolean mFirstLoad = true;
 
-    public MainActivityPresenter(@NonNull ItemsRepository itemsRepository,
-                                 @NonNull MainActivityContract.View mainView) {
-        Log.d(TAG, "MainActivityPresenter: called");
+    public ItemListPresenter(@NonNull ItemsRepository itemsRepository,
+                             @NonNull ItemListContract.View mainView) {
+        Log.d(TAG, "ItemListPresenter: called");
         mItemsRepository = checkNotNull(itemsRepository, "itemsRepository cannot be null");
         mMainView = checkNotNull(mainView, "mainView cannot be null");
 
@@ -68,9 +68,9 @@ public class MainActivityPresenter implements MainActivityContract.UserActionLis
         if(showLoadingUI){
             mMainView.setLoadingIndicator(true);
         }
-        if(true){//TODO remove
-            mItemsRepository.refreshItems();
-        }
+//        if(true){//TODO remove
+//            mItemsRepository.refreshItems();
+//        }
 
         mItemsRepository.getItems(new ItemsDataSource.LoadItemsCallback() {
             @Override
