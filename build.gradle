@@ -6,6 +6,7 @@ buildscript {
         maven { url "http://objectbox.net/beta-repo/" }
         jcenter()
         mavenCentral()
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
@@ -20,6 +21,7 @@ allprojects {
         maven { url "http://objectbox.net/beta-repo/" }
         jcenter()
         mavenCentral()
+        google()
     }
 }
 
