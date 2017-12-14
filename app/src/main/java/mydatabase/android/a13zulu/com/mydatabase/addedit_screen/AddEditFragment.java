@@ -101,7 +101,6 @@ public class AddEditFragment extends Fragment implements AddEditContract.View {
     @Override
     public void showItemList() {
         Log.d(TAG, "showItemList: called");
-        //TODO test
         getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
     }

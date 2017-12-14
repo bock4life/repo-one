@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import mydatabase.android.a13zulu.com.mydatabase.Injection;
 import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
+import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.StorageAddEditFragment;
 
 public class ItemListActivity extends AppCompatActivity {
     private static final String TAG = "ItemListActivity";
@@ -22,9 +23,7 @@ public class ItemListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Log.d(TAG, "onCreate: called");
 
-
-//        ItemListFragment itemListFragment = ItemListFragment.newInstance();
-//        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), itemListFragment, R.id.content_frame);
+        long storageId = getIntent().getLongExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, 0);
 
         ItemListFragment itemListFragment =
                 (ItemListFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
@@ -35,7 +34,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         }
         // create Presenter, it is passed to the View in its constructor
-        ItemListPresenter presenter = new ItemListPresenter(Injection.provideItemsRepository(getApplicationContext()), itemListFragment);
+        ItemListPresenter presenter = new ItemListPresenter(Injection.provideItemsRepository(getApplicationContext()), itemListFragment, storageId);
     }
 
     @Override

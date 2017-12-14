@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 
 /**
@@ -31,10 +33,10 @@ public interface ItemsDataSource {
     }
 
 
-    void getItems(@NonNull LoadItemsCallback callback);
+    void getItems(@Nonnull long storageId, @NonNull LoadItemsCallback callback);
     void getItem(@NonNull long itemId, @NonNull GetItemCallback callback);
-    void saveItem(@NonNull Item item);
-    void refreshItems();
+    void saveItem(@Nonnull long storageId, @NonNull Item item);
+    void refreshItems();//TODO remove
     void deleteItem(@NonNull long itemId);
 
 

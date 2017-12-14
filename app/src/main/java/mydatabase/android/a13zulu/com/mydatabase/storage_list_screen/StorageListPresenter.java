@@ -45,11 +45,16 @@ public class StorageListPresenter implements StorageListContract.UserActionListe
     public void result(int requestCode, int resultCode) {
         if(StorageAddEditActivity.REQUEST_ADD_STORAGE_ROOM == requestCode && Activity.RESULT_OK == resultCode){
             mStorageListView.showSuccessfullySavedMessage();
+            loadStorages();
         }
     }
 
     @Override
     public void loadStorageRooms() {
+        loadStorages();
+    }
+
+    private void loadStorages(){
         mStorageRoomsRepository.getStorageRooms(new StorageRoomsDataSource.LoadStorageRoomsCallback() {
             @Override
             public void onStorageRoomsLoader(List<StorageRoom> storageRooms) {

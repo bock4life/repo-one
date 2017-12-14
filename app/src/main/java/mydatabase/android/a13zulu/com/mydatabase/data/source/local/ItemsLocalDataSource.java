@@ -59,10 +59,9 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
      * Operations with Items
      */
     @Override
-    public void getItems(@NonNull LoadItemsCallback callback) {
-        //TODO update with relation to StorageRoom
+    public void getItems(@NonNull long storageId,@NonNull LoadItemsCallback callback) {
         Log.d(TAG, "getItems: called");
-        List<Item> items = mItemBox.getAll();
+        List<Item> items = mStorageRoomBox.get(storageId).getItems();
         if(items.isEmpty()){
             callback.onDataNotAvailable();
         } else {
@@ -78,16 +77,12 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
     }
 
     @Override
-    public void saveItem(@NonNull Item item) {
+    public void saveItem(@Nonnull long storageId, @NonNull Item item) {
         //TODO update with relation to StorageRoom
         Log.d(TAG, "saveItem: called");
-        mItemBox.put(item);
-
-//        List<Item> itemList = mItemBox.getAll();
-//
-//        for(int i = 0; i < itemList.size(); i++){
-//            Log.d(TAG, "Item: " + itemList.get(i).toString());
-//        }
+        StorageRoom storage = mStorageRoomBox.get(storageId);
+        storage.getItems().add(item);
+        mStorageRoomBox.put(storage);
     }
 
     @Override

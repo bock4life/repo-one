@@ -18,8 +18,8 @@ public interface ItemListContract {
     interface View extends BaseView<UserActionListener> {
         void setLoadingIndicator(boolean active);
         void showItems(List<Item> items);
-        void showAddItem();
-        void showItemDetailsUi(String itemId);
+        void showAddItem(long storageId);
+        void showItemDetailsUi(long storageId, String itemId);
         void showLoadingItemsError();
         void showNoItems();
         void showSuccessfullySavedMessage();

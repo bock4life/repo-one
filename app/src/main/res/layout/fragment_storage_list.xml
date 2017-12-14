@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     tools:context="mydatabase.android.a13zulu.com.mydatabase.storage_list_screen.StorageListFragment">
 
     <android.support.design.widget.FloatingActionButton

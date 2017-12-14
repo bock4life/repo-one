@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import mydatabase.android.a13zulu.com.mydatabase.Injection;
 import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
+import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.StorageAddEditFragment;
 
 /**
  * Displays an add or edit item screen.
@@ -40,6 +41,7 @@ public class AddEditActivity extends AppCompatActivity {
 
          mAddEditFragment = (AddEditFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         String itemId = getIntent().getStringExtra(AddEditFragment.ARGUMENT_EDIT_ITEM_ID);
+        long storageId = getIntent().getLongExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, 0);
 
         if (mAddEditFragment == null) {
             mAddEditFragment = AddEditFragment.newInstance();
@@ -65,7 +67,7 @@ public class AddEditActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        mAddEditPresenter = new AddEditPresenter(itemId,
+        mAddEditPresenter = new AddEditPresenter(storageId, itemId,
                 Injection.provideItemsRepository(getApplicationContext()),
                 mAddEditFragment, shouldLoadDataFromRepo, fragmentManager);
 
