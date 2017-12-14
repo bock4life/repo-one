@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
@@ -46,11 +48,11 @@ public class ItemsRepository implements ItemsDataSource {
     }
 
     @Override
-    public void getItems(@NonNull final LoadItemsCallback callback) {
+    public void getItems(@Nonnull long storageId, @NonNull final LoadItemsCallback callback) {
         Log.d(TAG, "getItems: called");
         checkNotNull(callback);
 
-        mItemsDataSource.getItems(new LoadItemsCallback() {
+        mItemsDataSource.getItems(storageId, new LoadItemsCallback() {
             @Override
             public void onItemsLoaded(List<Item> items) {
                 callback.onItemsLoaded(new ArrayList<>(items));
@@ -83,10 +85,10 @@ public class ItemsRepository implements ItemsDataSource {
     }
 
     @Override
-    public void saveItem(@NonNull Item item) {
+    public void saveItem(@Nonnull long storageId, @NonNull Item item) {
         Log.d(TAG, "saveItem: called");
         //TODO finish
-        mItemsDataSource.saveItem(item);
+        mItemsDataSource.saveItem(storageId, item);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package mydatabase.android.a13zulu.com.mydatabase.addedit_screen;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,11 +13,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import mydatabase.android.a13zulu.com.mydatabase.R;
-import mydatabase.android.a13zulu.com.mydatabase.main_screen.MainActivity;
-import mydatabase.android.a13zulu.com.mydatabase.transaction_screen.TransactionFragment;
+import mydatabase.android.a13zulu.com.mydatabase.transaction_dialog.TransactionFragment;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
-import static mydatabase.android.a13zulu.com.mydatabase.transaction_screen.TransactionFragment.TRANSACTION_FRAGMENT;
+import static mydatabase.android.a13zulu.com.mydatabase.transaction_dialog.TransactionFragment.TRANSACTION_FRAGMENT;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -59,7 +58,6 @@ public class AddEditFragment extends Fragment implements AddEditContract.View {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //TODO Save button
     }
 
     @Nullable
@@ -103,8 +101,8 @@ public class AddEditFragment extends Fragment implements AddEditContract.View {
     @Override
     public void showItemList() {
         Log.d(TAG, "showItemList: called");
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
+        getActivity().setResult(Activity.RESULT_OK);
+        getActivity().finish();
     }
 
     @Override

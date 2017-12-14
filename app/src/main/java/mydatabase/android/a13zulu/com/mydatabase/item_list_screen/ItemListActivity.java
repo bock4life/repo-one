@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.main_screen;
+package mydatabase.android.a13zulu.com.mydatabase.item_list_screen;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +10,10 @@ import android.view.MenuItem;
 import mydatabase.android.a13zulu.com.mydatabase.Injection;
 import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
+import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.StorageAddEditFragment;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
-
-    private MainActivityPresenter mPresenter;
+public class ItemListActivity extends AppCompatActivity {
+    private static final String TAG = "ItemListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,21 +23,18 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Log.d(TAG, "onCreate: called");
 
+        long storageId = getIntent().getLongExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, 0);
 
-//        MainActivityFragment mainActivityFragment = MainActivityFragment.newInstance();
-//        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mainActivityFragment, R.id.content_frame);
-
-        MainActivityFragment mainActivityFragment =
-                (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
-        if (mainActivityFragment == null) {
+        ItemListFragment itemListFragment =
+                (ItemListFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
+        if (itemListFragment == null) {
             // create the fragment
-            mainActivityFragment = MainActivityFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mainActivityFragment, R.id.content_frame);
+            itemListFragment = ItemListFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), itemListFragment, R.id.content_frame);
 
         }
-        // create Presenter
-        mPresenter = new MainActivityPresenter(Injection.provideItemsRepository(getApplicationContext()), mainActivityFragment);
-
+        // create Presenter, it is passed to the View in its constructor
+        ItemListPresenter presenter = new ItemListPresenter(Injection.provideItemsRepository(getApplicationContext()), itemListFragment, storageId);
     }
 
     @Override

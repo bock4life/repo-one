@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.main_screen;
+package mydatabase.android.a13zulu.com.mydatabase.item_list_screen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.addedit_screen.AddEditActivity;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
+import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.StorageAddEditFragment;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 import static mydatabase.android.a13zulu.com.mydatabase.addedit_screen.AddEditFragment.ARGUMENT_EDIT_ITEM_ID;
@@ -25,27 +27,32 @@ import static mydatabase.android.a13zulu.com.mydatabase.addedit_screen.AddEditFr
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements MainActivityContract.View {
-    private static final String TAG = "MainActivityFragment";
+public class ItemListFragment extends Fragment implements ItemListContract.View {
+    private static final String TAG = "ItemListFragment";
 
-    private ItemRecyclerViewAdapter mItemRecyclerViewAdapter;
-    private MainActivityContract.UserActionListener mPresenter;
+    private ItemListRecyclerViewAdapter mItemListRecyclerViewAdapter;
+    private ItemListContract.UserActionListener mPresenter;
 
-    public MainActivityFragment() {
+    public ItemListFragment() {
     }
 
     /**
      * Listens for clicks on items in Recycler View.
      */
-    ItemRecyclerViewAdapter.OnItemClickListener mClickListener = new ItemRecyclerViewAdapter.OnItemClickListener() {
+    ItemListRecyclerViewAdapter.OnItemClickListener mClickListener = new ItemListRecyclerViewAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(Item item) {
             mPresenter.openItemDetails(item);
         }
     };
 
-    public static MainActivityFragment newInstance() {
-        return new MainActivityFragment();
+    public static ItemListFragment newInstance() {
+        return new ItemListFragment();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mPresenter.result(requestCode, resultCode);
     }
 
     @Override
@@ -53,7 +60,7 @@ public class MainActivityFragment extends Fragment implements MainActivityContra
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: called");
 
-        mItemRecyclerViewAdapter = new ItemRecyclerViewAdapter(new ArrayList<Item>(0), mClickListener);
+        mItemListRecyclerViewAdapter = new ItemListRecyclerViewAdapter(new ArrayList<Item>(0), mClickListener);
     }
 
     @Override
@@ -64,7 +71,7 @@ public class MainActivityFragment extends Fragment implements MainActivityContra
 
         RecyclerView recyclerView = rootView.findViewById(R.id.frag_main_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mItemRecyclerViewAdapter);
+        recyclerView.setAdapter(mItemListRecyclerViewAdapter);
 
         FloatingActionButton fab = rootView.findViewById(R.id.frag_main_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +88,7 @@ public class MainActivityFragment extends Fragment implements MainActivityContra
     }
 
     @Override
-    public void setPresenter(MainActivityContract.UserActionListener presenter) {
+    public void setPresenter(ItemListContract.UserActionListener presenter) {
         mPresenter = checkNotNull(presenter);
     }
 
@@ -92,36 +99,38 @@ public class MainActivityFragment extends Fragment implements MainActivityContra
 
     @Override
     public void showItems(List<Item> items) {
-        mItemRecyclerViewAdapter.replaceData(items);
+        mItemListRecyclerViewAdapter.replaceData(items);
     }
 
     @Override
-    public void showAddItem() {
+    public void showAddItem(long storageId) {
         Intent intent = new Intent(getContext(), AddEditActivity.class);
-        startActivity(intent);
+        intent.putExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, storageId);
+        startActivityForResult(intent, AddEditActivity.REQUEST_ADD_ITEM);
     }
 
     @Override
-    public void showItemDetailsUi(String itemId) {
+    public void showItemDetailsUi(long storageId, String itemId) {
         Log.d(TAG, "showItemDetailsUi: clicked");
         Intent intent = new Intent(getContext(),AddEditActivity.class);
+        intent.putExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, storageId);
         intent.putExtra(ARGUMENT_EDIT_ITEM_ID, itemId);
         startActivity(intent);
     }
 
     @Override
     public void showLoadingItemsError() {
-
+        //TODO display snackbar with error message
     }
 
     @Override
     public void showNoItems() {
-
+        //TODO add UI elements with message "press + to add new items"
     }
 
     @Override
     public void showSuccessfullySavedMessage() {
-
+        Toast.makeText(getContext(), "Item was successfully saved", Toast.LENGTH_LONG).show();
     }
 
     @Override

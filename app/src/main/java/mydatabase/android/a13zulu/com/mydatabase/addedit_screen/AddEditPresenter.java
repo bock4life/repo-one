@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
+import javax.annotation.Nonnull;
+
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
 
@@ -24,6 +26,9 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
     @NonNull
     private final AddEditContract.View mAddItemView;
 
+    @Nonnull
+    private long mStorageId;
+
     @Nullable
     private String mItemId;
 
@@ -41,9 +46,12 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
      * @param addItemView            the add/edit view
      * @param shouldLoadDataFromRepo whether data needs to be loader or not (for config changes)
      */
-    public AddEditPresenter(@Nullable String itemId, @NonNull ItemsDataSource itemsRepository,
-                            AddEditContract.View addItemView, boolean shouldLoadDataFromRepo, FragmentManager fragmentManager) {
+    public AddEditPresenter(@Nonnull long storageId, @Nullable String itemId,
+                            @NonNull ItemsDataSource itemsRepository,
+                            AddEditContract.View addItemView,
+                            boolean shouldLoadDataFromRepo, FragmentManager fragmentManager) {
 
+        mStorageId = storageId;
         mItemId = itemId;
         mItemsRepository = checkNotNull(itemsRepository);
         mAddItemView = checkNotNull(addItemView);
@@ -131,7 +139,7 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
             return;
         }
         Log.d(TAG, "createItem: called");
-        mItemsRepository.saveItem(newItem);
+        mItemsRepository.saveItem(mStorageId, newItem);
         mAddItemView.showItemList();// navigate back to item list
     }
 
@@ -139,7 +147,7 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
         if (isNewItem()) {
             throw new RuntimeException("updateItem() was called but the Item is new");
         }
-        mItemsRepository.saveItem(new Item(name, description, quantity));//// FIXME: 11/11/2017 should update not create new
+        mItemsRepository.saveItem(mStorageId, new Item(name, description, quantity));//// FIXME: 11/11/2017 should update not create new
         mAddItemView.showItemList(); // navigate back to item list
     }
 }

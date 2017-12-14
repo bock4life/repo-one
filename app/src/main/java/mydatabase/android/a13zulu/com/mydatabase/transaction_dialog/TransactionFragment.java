@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.transaction_screen;
+package mydatabase.android.a13zulu.com.mydatabase.transaction_dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -94,11 +94,5 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
     @Override
     public void closeTransactionFragment() {
         getDialog().dismiss();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.d(TAG, "onDestroyView: called");
-        super.onDestroyView();
     }
 }

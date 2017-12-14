@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.main_screen;
+package mydatabase.android.a13zulu.com.mydatabase.item_list_screen;
 
 
 import android.app.Activity;
@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import mydatabase.android.a13zulu.com.mydatabase.addedit_screen.AddEditActivity;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
@@ -16,23 +18,27 @@ import static android.support.v4.util.Preconditions.checkNotNull;
 
 
 /**
- * Listens to user actions from the UI ({@link MainActivityFragment}), retrieves the data and updates the
+ * Listens to user actions from the UI ({@link ItemListFragment}), retrieves the data and updates the
  * UI as required.
  */
-public class MainActivityPresenter implements MainActivityContract.UserActionListener {
-    private static final String TAG = "MainActivityPresenter";
+public class ItemListPresenter implements ItemListContract.UserActionListener {
+    private static final String TAG = "ItemListPresenter";
 
     private final ItemsRepository mItemsRepository;
 
-    private final MainActivityContract.View mMainView;
+    private final ItemListContract.View mMainView;
+
+    private long mStorageId; // initialize in constructor
 
     private boolean mFirstLoad = true;
 
-    public MainActivityPresenter(@NonNull ItemsRepository itemsRepository,
-                                 @NonNull MainActivityContract.View mainView) {
-        Log.d(TAG, "MainActivityPresenter: called");
+    public ItemListPresenter(@NonNull ItemsRepository itemsRepository,
+                             @NonNull ItemListContract.View mainView,
+                             @Nonnull long storageId) {
+        Log.d(TAG, "ItemListPresenter: called");
         mItemsRepository = checkNotNull(itemsRepository, "itemsRepository cannot be null");
         mMainView = checkNotNull(mainView, "mainView cannot be null");
+        mStorageId = storageId;
 
         mMainView.setPresenter(this);
     }
@@ -46,9 +52,10 @@ public class MainActivityPresenter implements MainActivityContract.UserActionLis
     @Override
     public void result(int requestCode, int resultCode) {
         // if Item was successfully added, show snackbar
-        if(AddEditActivity.REQUEST_ADD_ITEM == requestCode &&
-                Activity.RESULT_OK == resultCode){
+        if (AddEditActivity.REQUEST_ADD_ITEM == requestCode &&
+                Activity.RESULT_OK == resultCode) {
             mMainView.showSuccessfullySavedMessage();
+            loadItems(true);
         }
     }
 
@@ -59,20 +66,16 @@ public class MainActivityPresenter implements MainActivityContract.UserActionLis
     }
 
     /**
-     *
-     * @param forceUpdate Pass in true to refresh the data in the {@link mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource}
+     * @param forceUpdate   Pass in true to refresh the data in the {@link mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource}
      * @param showLoadingUI Pass in true to display a loading icon in the UI
      */
-    private void loadItems(boolean forceUpdate, final boolean showLoadingUI){
+    private void loadItems(boolean forceUpdate, final boolean showLoadingUI) {
         Log.d(TAG, "loadItems: Called");
-        if(showLoadingUI){
+        if (showLoadingUI) {
             mMainView.setLoadingIndicator(true);
         }
-        if(true){//TODO remove
-            mItemsRepository.refreshItems();
-        }
 
-        mItemsRepository.getItems(new ItemsDataSource.LoadItemsCallback() {
+        mItemsRepository.getItems(mStorageId, new ItemsDataSource.LoadItemsCallback() {
             @Override
             public void onItemsLoaded(List<Item> items) {
                 processItems(items);
@@ -82,7 +85,7 @@ public class MainActivityPresenter implements MainActivityContract.UserActionLis
             @Override
             public void onDataNotAvailable() {
                 Log.d(TAG, "onDataNotAvailable: NO ITEMS AVAILABLE");
-                if(!mMainView.isActive()){
+                if (!mMainView.isActive()) {
                     return;
                 }
                 mMainView.showLoadingItemsError();
@@ -90,22 +93,23 @@ public class MainActivityPresenter implements MainActivityContract.UserActionLis
         });
     }
 
-    private void processItems(List<Item> items){
+    private void processItems(List<Item> items) {
         Log.d(TAG, "processItems: called");
-        if(items.isEmpty()){
+        if (items.isEmpty()) {
             mMainView.showNoItems();
-        }else{
+        } else {
             mMainView.showItems(items);
         }
     }
+
     @Override
     public void addNewItem() {
-        mMainView.showAddItem(); // open blank AddEdit screen
+        mMainView.showAddItem(mStorageId); // open blank AddEdit screen
     }
 
     @Override
     public void openItemDetails(@NonNull Item requestedItem) {
         checkNotNull(requestedItem, "requestedItem cannot be null");
-        mMainView.showItemDetailsUi(String.valueOf(requestedItem.getId()));// open AddEdit screen with existing item
+        mMainView.showItemDetailsUi(mStorageId, String.valueOf(requestedItem.getId()));// open AddEdit screen with existing item
     }
 }

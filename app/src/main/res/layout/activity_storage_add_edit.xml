@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="mydatabase.android.a13zulu.com.mydatabase.item_list_screen.ItemListActivity">
-
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -26,7 +24,7 @@
 
 
     <FrameLayout
-        android:id="@+id/content_frame"
+        android:id="@+id/storage_addedit_activity_content_frame"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
@@ -45,6 +43,5 @@
         tools:layout_constraintTop_creator="1">
 
     </FrameLayout>
-
 
 </android.support.constraint.ConstraintLayout>

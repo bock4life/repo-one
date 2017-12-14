@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.main_screen;
+package mydatabase.android.a13zulu.com.mydatabase.item_list_screen;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -16,30 +16,30 @@ import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import static android.support.v4.util.Preconditions.checkNotNull;
 
 
-public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ItemViewHolder>{
-    private static final String TAG = "ItemRecyclerViewAdapter";
+public class ItemListRecyclerViewAdapter
+        extends RecyclerView.Adapter<ItemListRecyclerViewAdapter.ItemViewHolder> {
+    private static final String TAG = "ItemListRecyclerAdapter";
 
     private List<Item> mItems;
     private OnItemClickListener mOnItemClickListener;
 
 
-
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(Item item);
     }
 
 
-    public ItemRecyclerViewAdapter(List<Item> items, OnItemClickListener onItemClickListener) {
+    public ItemListRecyclerViewAdapter(List<Item> items, OnItemClickListener onItemClickListener) {
         Log.d(TAG, "Constructor called");
         setList(items);
         mOnItemClickListener = onItemClickListener;
     }
 
-    private void setList(List<Item> items){
+    private void setList(List<Item> items) {
         mItems = checkNotNull(items);
     }
 
-    public void replaceData(List<Item> items){
+    public void replaceData(List<Item> items) {
         setList(items);
         notifyDataSetChanged();
     }
@@ -47,12 +47,13 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+
         return new ItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        if(mItems != null){
+        if (mItems != null) {
 
             final Item item = mItems.get(position);
             holder.name.setText(item.getItemName());
@@ -75,7 +76,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         return mItems.size();
     }
 
-    static class ItemViewHolder extends RecyclerView.ViewHolder{
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView name = null;
         TextView description = null;

@@ -5,6 +5,7 @@ import io.objectbox.annotation.Backlink;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.relation.ToMany;
+import io.objectbox.relation.ToOne;
 
 @Entity
 public class Item {
@@ -19,7 +20,7 @@ public class Item {
     @Backlink
     public ToMany<ItemTransaction> mItemTransactions;
 
-//    public ToOne<StorageRoom> storageRoom;
+    public ToOne<StorageRoom> storageRoom;
 
     public Item(long id, String itemName, String itemDescription, int itemQuantity) {
         this.id = id;
@@ -87,6 +88,19 @@ public class Item {
 
     public ToMany<ItemTransaction> getItemTransactions() {
         return mItemTransactions;
+    }
+
+    public void setItemTransactions(ToMany<ItemTransaction> itemTransactions) {
+        mItemTransactions = itemTransactions;
+    }
+
+
+    public ToOne<StorageRoom> getStorageRoomId() {
+        return storageRoom;
+    }
+
+    public void setStorageRoomId(ToOne<StorageRoom> storageRoom) {
+        this.storageRoom = storageRoom;
     }
 
     @Override

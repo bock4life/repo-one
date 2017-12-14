@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.transaction_screen;
+package mydatabase.android.a13zulu.com.mydatabase.transaction_dialog;
 
 import android.support.annotation.NonNull;
 import android.util.Log;

@@ -1,18 +1,3 @@
-	###My first title
-####### Second titlei
-
-
-
-
-
-
-
-
-
-
-
-
-
-:x
-
-
+	Database Application
+	MVP Architecture
+	ObjectBox database implementation
