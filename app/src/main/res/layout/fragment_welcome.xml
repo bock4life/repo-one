@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/frag_welcome_storagerooms_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_storage_black_48dp"
+        tools:layout_editor_absoluteY="231dp"/>
+
+    <ImageView
+        android:id="@+id/frag_welcome_transactions_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:srcCompat="@drawable/ic_assessment_black_48dp"
+        tools:layout_editor_absoluteY="231dp"/>
+
+    <ImageView
+        android:id="@+id/frag_welcome_outofstock_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frag_welcome_storagerooms_tv"
+        app:srcCompat="@drawable/ic_trending_down_black_48dp"/>
+
+    <ImageView
+        android:id="@+id/frag_welcome_settings_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/frag_welcome_transactions_tv"
+        app:srcCompat="@drawable/ic_settings_black_48dp"/>
+
+    <TextView
+        android:id="@+id/frag_welcome_storagerooms_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Storage Rooms"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/frag_welcome_storagerooms_iv"
+        app:layout_constraintStart_toStartOf="@+id/frag_welcome_storagerooms_iv"
+        app:layout_constraintTop_toBottomOf="@+id/frag_welcome_storagerooms_iv"/>
+
+    <TextView
+        android:id="@+id/frag_welcome_transactions_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Item Transactions"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/frag_welcome_transactions_iv"
+        app:layout_constraintStart_toStartOf="@+id/frag_welcome_transactions_iv"
+        app:layout_constraintTop_toBottomOf="@+id/frag_welcome_transactions_iv"/>
+
+    <TextView
+        android:id="@+id/frag_welcome_outofstock_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Out of stock items"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/frag_welcome_outofstock_iv"
+        app:layout_constraintStart_toStartOf="@+id/frag_welcome_outofstock_iv"
+        app:layout_constraintTop_toBottomOf="@+id/frag_welcome_outofstock_iv"/>
+
+    <TextView
+        android:id="@+id/frag_welcome_settings_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Settings"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/frag_welcome_settings_iv"
+        app:layout_constraintStart_toStartOf="@+id/frag_welcome_settings_iv"
+        app:layout_constraintTop_toBottomOf="@+id/frag_welcome_settings_iv"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+</android.support.constraint.ConstraintLayout>
