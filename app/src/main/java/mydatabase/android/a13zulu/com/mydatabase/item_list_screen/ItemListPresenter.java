@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import mydatabase.android.a13zulu.com.mydatabase.addedit_screen.AddEditActivity;
+import mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditActivity;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsRepository;

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="mydatabase.android.a13zulu.com.mydatabase.addedit_screen.AddEditFragment"
+    tools:context="mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditFragment"
     >
 
 

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import mydatabase.android.a13zulu.com.mydatabase.Injection;
 import mydatabase.android.a13zulu.com.mydatabase.R;
 
-import static mydatabase.android.a13zulu.com.mydatabase.addedit_screen.AddEditFragment.ARGUMENT_EDIT_ITEM_ID;
+import static mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditFragment.ARGUMENT_EDIT_ITEM_ID;
 
 /**
  * UI for item transaction, inflated when user is clicked on Quantity field,

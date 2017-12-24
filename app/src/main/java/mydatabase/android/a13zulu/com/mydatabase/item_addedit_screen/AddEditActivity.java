@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.addedit_screen;
+package mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -33,7 +33,7 @@ public class AddEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit);
 
         // toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

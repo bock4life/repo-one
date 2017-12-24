@@ -130,4 +130,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/frag_welcome_outofstock_number_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/frag_welcome_outofstock_iv"
+        app:layout_constraintTop_toTopOf="@+id/frag_welcome_outofstock_iv"/>
 </android.support.constraint.ConstraintLayout>

@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mydatabase.android.a13zulu.com.mydatabase.R;
-import mydatabase.android.a13zulu.com.mydatabase.addedit_screen.AddEditActivity;
+import mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditActivity;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.StorageAddEditFragment;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
-import static mydatabase.android.a13zulu.com.mydatabase.addedit_screen.AddEditFragment.ARGUMENT_EDIT_ITEM_ID;
+import static mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditFragment.ARGUMENT_EDIT_ITEM_ID;
 
 /**
  * A placeholder fragment containing a simple view.

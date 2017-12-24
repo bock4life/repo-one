@@ -1,4 +1,4 @@
-package mydatabase.android.a13zulu.com.mydatabase.addedit_screen;
+package mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen;
 
 import android.app.Activity;
 import android.os.Bundle;
