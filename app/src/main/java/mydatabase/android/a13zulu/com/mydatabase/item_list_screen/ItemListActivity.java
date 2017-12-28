@@ -14,16 +14,20 @@ import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.Storage
 
 public class ItemListActivity extends AppCompatActivity {
     private static final String TAG = "ItemListActivity";
+    private static long mStorageId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Log.d(TAG, "onCreate: called");
 
-        long storageId = getIntent().getLongExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, 0);
+        long storageId = getIntent().getLongExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID,0);
+        if(storageId != 0){
+            mStorageId = storageId;
+        }
 
         ItemListFragment itemListFragment =
                 (ItemListFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
@@ -34,7 +38,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         }
         // create Presenter, it is passed to the View in its constructor
-        ItemListPresenter presenter = new ItemListPresenter(Injection.provideItemsRepository(getApplicationContext()), itemListFragment, storageId);
+        ItemListPresenter presenter = new ItemListPresenter(Injection.provideItemsRepository(getApplicationContext()), itemListFragment, mStorageId);
     }
 
     @Override

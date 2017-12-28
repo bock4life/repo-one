@@ -32,6 +32,8 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
 
     private boolean mFirstLoad = true;
 
+
+
     public ItemListPresenter(@NonNull ItemsRepository itemsRepository,
                              @NonNull ItemListContract.View mainView,
                              @Nonnull long storageId) {
@@ -51,10 +53,14 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
 
     @Override
     public void result(int requestCode, int resultCode) {
+        Log.d(TAG, "result: " + resultCode);
         // if Item was successfully added, show snackbar
         if (AddEditActivity.REQUEST_ADD_ITEM == requestCode &&
                 Activity.RESULT_OK == resultCode) {
             mMainView.showSuccessfullySavedMessage();
+            loadItems(true);
+        }else { //if (AddEditActivity.REQUEST_EDIT_ITEM == requestCode &&
+                //Activity.RESULT_OK == resultCode){ //TODO FIX
             loadItems(true);
         }
     }
@@ -112,4 +118,6 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
         checkNotNull(requestedItem, "requestedItem cannot be null");
         mMainView.showItemDetailsUi(mStorageId, String.valueOf(requestedItem.getId()));// open AddEdit screen with existing item
     }
+
+
 }

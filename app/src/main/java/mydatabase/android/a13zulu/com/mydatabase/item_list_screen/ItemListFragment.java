@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mydatabase.android.a13zulu.com.mydatabase.R;
-import mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditActivity;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
+import mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditActivity;
 import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.StorageAddEditFragment;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
@@ -104,6 +104,7 @@ public class ItemListFragment extends Fragment implements ItemListContract.View 
 
     @Override
     public void showAddItem(long storageId) {
+        Log.d(TAG, "showAddItem: called");
         Intent intent = new Intent(getContext(), AddEditActivity.class);
         intent.putExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, storageId);
         startActivityForResult(intent, AddEditActivity.REQUEST_ADD_ITEM);
@@ -111,11 +112,11 @@ public class ItemListFragment extends Fragment implements ItemListContract.View 
 
     @Override
     public void showItemDetailsUi(long storageId, String itemId) {
-        Log.d(TAG, "showItemDetailsUi: clicked");
+        Log.d(TAG, "showItemDetailsUi: called");
         Intent intent = new Intent(getContext(),AddEditActivity.class);
         intent.putExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, storageId);
         intent.putExtra(ARGUMENT_EDIT_ITEM_ID, itemId);
-        startActivity(intent);
+        startActivityForResult(intent, AddEditActivity.REQUEST_EDIT_ITEM);
     }
 
     @Override

@@ -147,7 +147,7 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
         if (isNewItem()) {
             throw new RuntimeException("updateItem() was called but the Item is new");
         }
-        mItemsRepository.saveItem(mStorageId, new Item(name, description, quantity));//// FIXME: 11/11/2017 should update not create new
+        mItemsRepository.saveItem(mStorageId, new Item(Long.parseLong(mItemId), name, description, quantity));
         mAddItemView.showItemList(); // navigate back to item list
     }
 }

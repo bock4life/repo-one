@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,16 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import mydatabase.android.a13zulu.com.mydatabase.BaseFragment;
 import mydatabase.android.a13zulu.com.mydatabase.R;
+import mydatabase.android.a13zulu.com.mydatabase.transaction_dialog.TransactionDialogCallbackContract;
 import mydatabase.android.a13zulu.com.mydatabase.transaction_dialog.TransactionFragment;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
 import static mydatabase.android.a13zulu.com.mydatabase.transaction_dialog.TransactionFragment.TRANSACTION_FRAGMENT;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AddEditFragment extends Fragment implements AddEditContract.View {
+public class AddEditFragment extends BaseFragment implements AddEditContract.View, TransactionDialogCallbackContract {
 
     public static final String ARGUMENT_EDIT_ITEM_ID = "EDIT_ITEM_ID";
     private static final String TAG = "AddEditFragment";
@@ -33,6 +33,7 @@ public class AddEditFragment extends Fragment implements AddEditContract.View {
     private EditText mDescriptionEditText;
     private EditText mQuantityEditText;
     private FloatingActionButton mSaveFb;
+    private boolean hasNewData = false;
 
     public AddEditFragment() {
     }
@@ -46,7 +47,7 @@ public class AddEditFragment extends Fragment implements AddEditContract.View {
     // Called from Activity
     @Override
     public void setPresenter(AddEditContract.UserActionListener presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     @Override
@@ -70,6 +71,8 @@ public class AddEditFragment extends Fragment implements AddEditContract.View {
         mDescriptionEditText = rootView.findViewById(R.id.frag_add_edit_description_et);
         mQuantityEditText = rootView.findViewById(R.id.frag_add_edit_quantity_et);
         mSaveFb = rootView.findViewById(R.id.frag_add_edit_save_fab);
+
+
 
         mSaveFb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +145,22 @@ public class AddEditFragment extends Fragment implements AddEditContract.View {
         Bundle args = new Bundle();
         args.putLong(ARGUMENT_EDIT_ITEM_ID, itemId);
         fragment.setArguments(args);
+        fragment.setTargetFragment(this, 0);
         fragment.show(getFragmentManager(),TRANSACTION_FRAGMENT);
+    }
+
+    @Override
+    public void updateUi() {
+        hasNewData = true;
+        mPresenter.populateItem();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (hasNewData){
+            Log.d(TAG, "onBackPressed: called");
+            getActivity().setResult(Activity.RESULT_OK);
+        }
     }
 }

@@ -18,6 +18,7 @@ public class AddEditActivity extends AppCompatActivity {
     private static final String TAG = "AddEditActivity";
 
     public static final int REQUEST_ADD_ITEM = 1;
+    public static final int REQUEST_EDIT_ITEM = 11;
 
     public static final String SHOULD_LOAD_DATA_FROM_REPO_KEY = "SHOULD_LOAD_DATA_FROM_REPO_KEY";
 
@@ -72,5 +73,12 @@ public class AddEditActivity extends AppCompatActivity {
                 mAddEditFragment, shouldLoadDataFromRepo, fragmentManager);
 
         mAddEditFragment.setPresenter(mAddEditPresenter);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        mAddEditFragment.onBackPressed();
+        super.onBackPressed();
     }
 }

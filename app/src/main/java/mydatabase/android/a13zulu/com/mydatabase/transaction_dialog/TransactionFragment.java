@@ -36,6 +36,8 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
 
     private TransactionPresenter mPresenter;
 
+    private TransactionDialogCallbackContract mHost;
+
     public TransactionFragment() {
     }
 
@@ -83,6 +85,9 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
             }
         });
 
+        mHost = (TransactionDialogCallbackContract) getTargetFragment();
+
+
         return rootView;
     }
 
@@ -93,6 +98,8 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
 
     @Override
     public void closeTransactionFragment() {
+        mHost.updateUi();
         getDialog().dismiss();
     }
+
 }
