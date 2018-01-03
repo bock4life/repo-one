@@ -1,8 +1,11 @@
 package mydatabase.android.a13zulu.com.mydatabase.data.source;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.List;
+
+import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
 
 /**
  * Concrete implementation for operations with Item Transactions
@@ -26,8 +29,18 @@ public class TransactionsRepository implements TransactionsDataSource{
     }
 
     @Override
-    public void getTransactions(@Nullable long itemId, @NonNull LoadTransactionsCallback callback) {
+    public void getTransactions(long itemId, @NonNull final LoadTransactionsCallback callback) {
+        mTransactionsDataSource.getTransactions(itemId, new LoadTransactionsCallback() {
+            @Override
+            public void onTransactionsLoaded(List<ItemTransaction> transactions) {
+                callback.onTransactionsLoaded(transactions);
+            }
 
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
     }
 
     @Override
@@ -41,10 +54,6 @@ public class TransactionsRepository implements TransactionsDataSource{
         mTransactionsDataSource.saveTransaction(itemId, transactionAmount);
     }
 
-    @Override
-    public void refreshTransaction() {
-
-    }
 
     @Override
     public void deleteTransaction(@NonNull long transactionId) {

@@ -1,18 +1,26 @@
 package mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen;
 
 import android.app.Activity;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import mydatabase.android.a13zulu.com.mydatabase.BaseFragment;
 import mydatabase.android.a13zulu.com.mydatabase.R;
+import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
 import mydatabase.android.a13zulu.com.mydatabase.transaction_dialog.TransactionDialogCallbackContract;
 import mydatabase.android.a13zulu.com.mydatabase.transaction_dialog.TransactionFragment;
 
@@ -33,6 +41,9 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
     private EditText mDescriptionEditText;
     private EditText mQuantityEditText;
     private FloatingActionButton mSaveFb;
+    private ItemTransactionRecyclerAdapter mTransactionRecyclerAdapter;
+    private RecyclerView mTransactionsRecyclerView;
+
     private boolean hasNewData = false;
 
     public AddEditFragment() {
@@ -57,22 +68,26 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mTransactionRecyclerAdapter = new ItemTransactionRecyclerAdapter(new ArrayList<ItemTransaction>(0));
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_add_edit, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_add_edit, container, false);
         Log.d(TAG, "onCreateView: called");
 
         mNameEditText = rootView.findViewById(R.id.frag_add_edit_name_et);
         mDescriptionEditText = rootView.findViewById(R.id.frag_add_edit_description_et);
         mQuantityEditText = rootView.findViewById(R.id.frag_add_edit_quantity_et);
         mSaveFb = rootView.findViewById(R.id.frag_add_edit_save_fab);
+        mTransactionsRecyclerView = rootView.findViewById(R.id.frag_add_edit_transactions_rv);
+        mTransactionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mTransactionsRecyclerView.setAdapter(mTransactionRecyclerAdapter);
 
-
+        mPresenter.loadTransactionList();
 
         mSaveFb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +98,42 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
                         Integer.parseInt(mQuantityEditText.getText().toString()));
             }
         });
+
+        mQuantityEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: called");
+                mPresenter.makeTransaction();
+            }
+        });
+
+        // hiding recycler view when keyboard is opened
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                rootView.getWindowVisibleDisplayFrame(r);
+                int screenHeight = rootView.getRootView().getHeight();
+
+                // r.bottom is the position above soft keypad or device button.
+                // if keypad is shown, the r.bottom is smaller than that before.
+                int keypadHeight = screenHeight - r.bottom;
+
+                Log.d(TAG, "keypadHeight = " + keypadHeight);
+
+                if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                    // keyboard is opened
+                    Log.d(TAG, "onGlobalLayout: keyboard opened");
+                    mTransactionsRecyclerView.setVisibility(View.GONE);
+                }
+                else {
+                    // keyboard is closed
+                    Log.d(TAG, "onGlobalLayout: keyboard closed");
+                    mTransactionsRecyclerView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         return rootView;
     }
 
@@ -125,17 +176,19 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
 
     @Override
     public void enableTransactionList() {
-        //mQuantityEditText.setFocusable(true);
         mQuantityEditText.setFocusableInTouchMode(false);
         mQuantityEditText.setInputType(InputType.TYPE_NULL);
+        //TODO create Text Views with titles for transaction list
+    }
 
-        mQuantityEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: called");
-               mPresenter.makeTransaction();
-            }
-        });
+    @Override
+    public void showTransactionList(List<ItemTransaction> transactionList) {
+        mTransactionRecyclerAdapter.replaceData(transactionList);
+    }
+
+    @Override
+    public void showNoTransactions() {
+
     }
 
     @Override

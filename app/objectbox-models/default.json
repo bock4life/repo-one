@@ -34,7 +34,7 @@
     },
     {
       "id": "2:8887056218838758054",
-      "lastPropertyId": "5:5890399107051106368",
+      "lastPropertyId": "6:564229832919170111",
       "name": "ItemTransaction",
       "properties": [
         {
@@ -57,6 +57,10 @@
         {
           "id": "5:5890399107051106368",
           "name": "transactionDate"
+        },
+        {
+          "id": "6:564229832919170111",
+          "name": "remainingQuantity"
         }
       ],
       "relations": []

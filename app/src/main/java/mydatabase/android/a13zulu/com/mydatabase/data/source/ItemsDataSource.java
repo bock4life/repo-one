@@ -36,7 +36,6 @@ public interface ItemsDataSource {
     void getItems(@Nonnull long storageId, @NonNull LoadItemsCallback callback);
     void getItem(@NonNull long itemId, @NonNull GetItemCallback callback);
     void saveItem(@Nonnull long storageId, @NonNull Item item);
-    void refreshItems();//TODO remove
     void deleteItem(@NonNull long itemId);
 
 

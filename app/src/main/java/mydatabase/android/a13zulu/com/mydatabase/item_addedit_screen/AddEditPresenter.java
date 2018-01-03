@@ -2,15 +2,16 @@ package mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
+
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
+import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
-
-import static android.support.v4.util.Preconditions.checkNotNull;
+import mydatabase.android.a13zulu.com.mydatabase.data.source.TransactionsDataSource;
 
 /**
  * Listens to user action from the UI ({@link AddEditFragment}), retrieves that data
@@ -23,6 +24,9 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
     @NonNull
     private final ItemsDataSource mItemsRepository;
 
+    @Nonnull
+    private final TransactionsDataSource mTransactionsRepository;
+
     @NonNull
     private final AddEditContract.View mAddItemView;
 
@@ -34,10 +38,6 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
 
     private boolean mIsDataMissing;
 
-    @NonNull
-    FragmentManager mFragmentManager;
-
-
     /**
      * Creates a Presenter for the add/edit view.
      *
@@ -48,15 +48,16 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
      */
     public AddEditPresenter(@Nonnull long storageId, @Nullable String itemId,
                             @NonNull ItemsDataSource itemsRepository,
+                            @Nonnull TransactionsDataSource transactionsRepository,
                             AddEditContract.View addItemView,
-                            boolean shouldLoadDataFromRepo, FragmentManager fragmentManager) {
+                            boolean shouldLoadDataFromRepo) {
 
         mStorageId = storageId;
         mItemId = itemId;
-        mItemsRepository = checkNotNull(itemsRepository);
-        mAddItemView = checkNotNull(addItemView);
+        mItemsRepository = itemsRepository;
+        mTransactionsRepository = transactionsRepository;
+        mAddItemView = addItemView;
         mIsDataMissing = shouldLoadDataFromRepo;
-        mFragmentManager = checkNotNull(fragmentManager);//TODO remove if not needed
     }
 
     @Override
@@ -89,14 +90,11 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
     @Override
     public void makeTransaction() {
         Log.d(TAG, "makeTransaction: called");
-
-        mAddItemView.showTransactionFragment(Long.parseLong(mItemId));
+        if(!isNewItem()) {
+            mAddItemView.showTransactionFragment(Long.parseLong(mItemId));
+        }
     }
 
-    @Override
-    public boolean isDataMissing() {
-        return mIsDataMissing;
-    }
 
 
     @Override
@@ -105,9 +103,6 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
         mAddItemView.setDescription(item.getItemDescription());
         mAddItemView.setQuantity(item.getItemQuantity());
 
-        mAddItemView.enableTransactionList();
-        //TODO add logic to enable item transactions and activate additional UI elements(RecyclerView)
-        //TODO populate Recycler View with transactions
         mIsDataMissing = false;
     }
 
@@ -149,5 +144,34 @@ public class AddEditPresenter implements AddEditContract.UserActionListener, Ite
         }
         mItemsRepository.saveItem(mStorageId, new Item(Long.parseLong(mItemId), name, description, quantity));
         mAddItemView.showItemList(); // navigate back to item list
+    }
+
+    @Override
+    public void loadTransactionList() {
+        if(!isNewItem()) {
+            loadTransactions();
+        }
+    }
+
+    private void loadTransactions(){
+        mTransactionsRepository.getTransactions(Long.parseLong(mItemId), new TransactionsDataSource.LoadTransactionsCallback() {
+            @Override
+            public void onTransactionsLoaded(List<ItemTransaction> transactions) {
+                processTransactionList(transactions);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+            }
+        });
+    }
+
+    private void processTransactionList(List<ItemTransaction> transactionList){
+        if(transactionList.isEmpty()){
+            mAddItemView.showNoTransactions();
+        }else{
+            mAddItemView.enableTransactionList();
+            mAddItemView.showTransactionList(transactionList);
+        }
     }
 }

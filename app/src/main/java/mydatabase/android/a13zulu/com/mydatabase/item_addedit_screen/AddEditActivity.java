@@ -1,7 +1,6 @@
 package mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -66,11 +65,10 @@ public class AddEditActivity extends AppCompatActivity {
             shouldLoadDataFromRepo = savedInstanceState.getBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY);
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
         mAddEditPresenter = new AddEditPresenter(storageId, itemId,
                 Injection.provideItemsRepository(getApplicationContext()),
-                mAddEditFragment, shouldLoadDataFromRepo, fragmentManager);
+                Injection.provideTransactionRepository(getApplicationContext()),
+                mAddEditFragment, shouldLoadDataFromRepo);
 
         mAddEditFragment.setPresenter(mAddEditPresenter);
     }

@@ -60,10 +60,6 @@ public class StorageRoomsRepository implements StorageRoomsDataSource{
         mStorageRoomsDataSource.saveStorageRoom(storageRoom);
     }
 
-    @Override
-    public void refreshStorageRooms() {
-        //TODO finish.
-    }
 
     @Override
     public void deleteStorageRoom(@Nonnull long storageRoomId) {

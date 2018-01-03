@@ -94,7 +94,6 @@ public class Item {
         mItemTransactions = itemTransactions;
     }
 
-
     public ToOne<StorageRoom> getStorageRoomId() {
         return storageRoom;
     }

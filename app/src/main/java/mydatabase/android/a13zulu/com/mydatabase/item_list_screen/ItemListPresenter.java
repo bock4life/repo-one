@@ -9,19 +9,18 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditActivity;
+import io.objectbox.reactive.DataObserver;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsRepository;
-
-import static android.support.v4.util.Preconditions.checkNotNull;
+import mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditActivity;
 
 
 /**
  * Listens to user actions from the UI ({@link ItemListFragment}), retrieves the data and updates the
  * UI as required.
  */
-public class ItemListPresenter implements ItemListContract.UserActionListener {
+public class ItemListPresenter implements ItemListContract.UserActionListener, DataObserver<Item> {
     private static final String TAG = "ItemListPresenter";
 
     private final ItemsRepository mItemsRepository;
@@ -37,9 +36,8 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
     public ItemListPresenter(@NonNull ItemsRepository itemsRepository,
                              @NonNull ItemListContract.View mainView,
                              @Nonnull long storageId) {
-        Log.d(TAG, "ItemListPresenter: called");
-        mItemsRepository = checkNotNull(itemsRepository, "itemsRepository cannot be null");
-        mMainView = checkNotNull(mainView, "mainView cannot be null");
+        mItemsRepository = itemsRepository;
+        mMainView = mainView;
         mStorageId = storageId;
 
         mMainView.setPresenter(this);
@@ -47,7 +45,6 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
 
     @Override
     public void start() {
-        Log.d(TAG, "start: called");
         loadItems(false);
     }
 
@@ -61,7 +58,7 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
             loadItems(true);
         }else { //if (AddEditActivity.REQUEST_EDIT_ITEM == requestCode &&
                 //Activity.RESULT_OK == resultCode){ //TODO FIX
-            loadItems(true);
+            //loadItems(true);
         }
     }
 
@@ -76,7 +73,6 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
      * @param showLoadingUI Pass in true to display a loading icon in the UI
      */
     private void loadItems(boolean forceUpdate, final boolean showLoadingUI) {
-        Log.d(TAG, "loadItems: Called");
         if (showLoadingUI) {
             mMainView.setLoadingIndicator(true);
         }
@@ -85,12 +81,10 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
             @Override
             public void onItemsLoaded(List<Item> items) {
                 processItems(items);
-                Log.d(TAG, "onItemsLoaded: ITEMS LOADED");
             }
 
             @Override
             public void onDataNotAvailable() {
-                Log.d(TAG, "onDataNotAvailable: NO ITEMS AVAILABLE");
                 if (!mMainView.isActive()) {
                     return;
                 }
@@ -100,7 +94,6 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
     }
 
     private void processItems(List<Item> items) {
-        Log.d(TAG, "processItems: called");
         if (items.isEmpty()) {
             mMainView.showNoItems();
         } else {
@@ -115,9 +108,12 @@ public class ItemListPresenter implements ItemListContract.UserActionListener {
 
     @Override
     public void openItemDetails(@NonNull Item requestedItem) {
-        checkNotNull(requestedItem, "requestedItem cannot be null");
         mMainView.showItemDetailsUi(mStorageId, String.valueOf(requestedItem.getId()));// open AddEdit screen with existing item
     }
 
 
+    @Override
+    public void onData(Item data) {
+        Log.d(TAG, "onData: called");
+    }
 }

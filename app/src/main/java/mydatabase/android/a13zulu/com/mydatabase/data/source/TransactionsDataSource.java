@@ -27,6 +27,5 @@ public interface TransactionsDataSource {
     void getTransaction(@NonNull long transactionId, @NonNull GetTransactionCallback callback);
     //void saveTransaction(@NonNull ItemTransaction transaction);
     void saveTransaction(@NonNull long itemId, @NonNull int transactionAmount);
-    void refreshTransaction();
     void deleteTransaction(@NonNull long transactionId);
 }

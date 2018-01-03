@@ -11,8 +11,6 @@ import javax.annotation.Nonnull;
 
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
-
 /**
  * Concrete implementation to load items from data source.
  */
@@ -50,7 +48,6 @@ public class ItemsRepository implements ItemsDataSource {
     @Override
     public void getItems(@Nonnull long storageId, @NonNull final LoadItemsCallback callback) {
         Log.d(TAG, "getItems: called");
-        checkNotNull(callback);
 
         mItemsDataSource.getItems(storageId, new LoadItemsCallback() {
             @Override
@@ -67,8 +64,6 @@ public class ItemsRepository implements ItemsDataSource {
 
     @Override
     public void getItem(@NonNull long itemId, @NonNull final GetItemCallback callback) {
-        checkNotNull(itemId);
-        checkNotNull(callback);
         Log.d(TAG, "getItem: called");
 
         mItemsDataSource.getItem(itemId, new GetItemCallback() {
@@ -89,11 +84,6 @@ public class ItemsRepository implements ItemsDataSource {
         Log.d(TAG, "saveItem: called");
         //TODO finish
         mItemsDataSource.saveItem(storageId, item);
-    }
-
-    @Override
-    public void refreshItems() {
-        mCacheIsDirty = true;
     }
 
     @Override

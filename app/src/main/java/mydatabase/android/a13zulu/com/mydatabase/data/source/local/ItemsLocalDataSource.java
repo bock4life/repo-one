@@ -2,7 +2,6 @@ package mydatabase.android.a13zulu.com.mydatabase.data.source.local;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.Date;
@@ -21,13 +20,11 @@ import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.StorageRoomsDataSource;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.TransactionsDataSource;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
-
 /**
  * ObjectBox Database implementation
  */
 
-public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSource, StorageRoomsDataSource{
+public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSource, StorageRoomsDataSource {
     private static final String TAG = "ItemsLocalDataSource";
     private static ItemsLocalDataSource INSTANCE;
     private BoxStore mBoxStore;
@@ -37,8 +34,7 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
     Box<StorageRoom> mStorageRoomBox;
 
 
-    private ItemsLocalDataSource(@NonNull Context context){
-        checkNotNull(context);
+    private ItemsLocalDataSource(@NonNull Context context) {
 
         mBoxStore = MyObjectBox.builder().androidContext(context).build(); //TODO confirm that context is correct
         mDaoSession = new DaoSession(mBoxStore);
@@ -48,8 +44,8 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
         mStorageRoomBox = mBoxStore.boxFor(StorageRoom.class);
     }
 
-    public static ItemsLocalDataSource getInstance(@NonNull Context context){
-        if(INSTANCE == null){
+    public static ItemsLocalDataSource getInstance(@NonNull Context context) {
+        if (INSTANCE == null) {
             INSTANCE = new ItemsLocalDataSource(context);
         }
         return INSTANCE;
@@ -59,10 +55,10 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
      * Operations with Items
      */
     @Override
-    public void getItems(@NonNull long storageId,@NonNull LoadItemsCallback callback) {
+    public void getItems(long storageId, @NonNull LoadItemsCallback callback) {
         Log.d(TAG, "getItems: called");
         List<Item> items = mStorageRoomBox.get(storageId).getItems();
-        if(items.isEmpty()){
+        if (items.isEmpty()) {
             callback.onDataNotAvailable();
         } else {
             callback.onItemsLoaded(items);
@@ -70,14 +66,13 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
     }
 
     @Override
-    public void getItem(@NonNull long itemId, @NonNull GetItemCallback callback) {
-        //TODO update with relation to StorageRoom
+    public void getItem(long itemId, @NonNull GetItemCallback callback) {
         Log.d(TAG, "getItem: called");
         callback.onItemLoaded(mItemBox.get(itemId));
     }
 
     @Override
-    public void saveItem(@Nonnull long storageId, @NonNull Item item) {
+    public void saveItem(long storageId, @NonNull Item item) {
         //TODO update with relation to StorageRoom
         Log.d(TAG, "saveItem: called");
         StorageRoom storage = mStorageRoomBox.get(storageId);
@@ -86,15 +81,8 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
     }
 
     @Override
-    public void refreshItems() {
-        Log.d(TAG, "refreshItems: called");
-    }
-
-    @Override
-    public void deleteItem(@NonNull long itemId) {
-        //TODO update with relation to StorageRoom
-//        Log.d(TAG, "deleteItem: called");
-//        mItemBox.remove(itemId);//TODO check if correct
+    public void deleteItem(long itemId) {
+        //TODO finish
     }
 
 
@@ -103,33 +91,38 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
      */
 
     @Override
-    public void getTransactions(@Nullable long itemId, @NonNull LoadTransactionsCallback callback) {
+    public void getTransactions(long itemId, @NonNull LoadTransactionsCallback callback) {
+        Log.d(TAG, "getTransactions: called");
+        List<ItemTransaction> transactions = mItemBox.get(itemId).getItemTransactions();
+        if (transactions.isEmpty()) {
+            callback.onDataNotAvailable();
+        } else {
+            callback.onTransactionsLoaded(transactions);
+        }
+    }
+
+    @Override
+    public void getTransaction(long transactionId, @NonNull GetTransactionCallback callback) {
 
     }
 
     @Override
-    public void getTransaction(@NonNull long transactionId, @NonNull GetTransactionCallback callback) {
-
-    }
-
-    @Override
-    public void saveTransaction(@NonNull long itemId, @NonNull int transactionAmount) {
+    public void saveTransaction(long itemId, @NonNull int transactionAmount) {
         Item item = mItemBox.get(itemId);
         String itemName = item.getItemName();
         Date currentDate = new Date();
-        ItemTransaction transaction = new ItemTransaction(itemName, transactionAmount, currentDate);
+        ItemTransaction transaction = new ItemTransaction(itemName,
+                transactionAmount,
+                currentDate,
+                mItemBox.get(itemId).getItemQuantity() + transactionAmount);
+
         item.getItemTransactions().add(transaction);
         item.setItemQuantity(item.getItemQuantity() + transactionAmount);
         mItemBox.put(item);
     }
 
     @Override
-    public void refreshTransaction() {
-
-    }
-
-    @Override
-    public void deleteTransaction(@NonNull long transactionId) {
+    public void deleteTransaction(long transactionId) {
 
     }
 
@@ -152,10 +145,6 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
         mStorageRoomBox.put(storageRoom);
     }
 
-    @Override
-    public void refreshStorageRooms() {
-
-    }
 
     @Override
     public void deleteStorageRoom(@Nonnull long storageRoomId) {

@@ -18,23 +18,26 @@ public class ItemTransaction {
     String itemName;
     int quantity;
     Date transactionDate;
+    int remainingQuantity;
 
     public ToOne<Item> item;
 
-    public ItemTransaction(String itemName, int quantity, Date transactionDate) {
+    public ItemTransaction(String itemName, int quantity, Date transactionDate, int remainingQuantity) {
         this.id = 0;
         this.itemId = itemId;
         this.itemName = itemName;
         this.quantity = quantity;
         this.transactionDate = transactionDate;
+        this.remainingQuantity = remainingQuantity;
     }
 
-    public ItemTransaction(long id,long itemId, String itemName, int quantity, Date transactionDate) {
+    public ItemTransaction(long id,long itemId, String itemName, int quantity, Date transactionDate, int remainingQuantity) {
         this.id = id;
         this.itemId = itemId;
         this.itemName = itemName;
         this.quantity = quantity;
         this.transactionDate = transactionDate;
+        this.remainingQuantity = remainingQuantity;
     }
 
     public ItemTransaction(){
@@ -79,6 +82,18 @@ public class ItemTransaction {
 
     public void setTransactionDate(Date transactionDate) {
         this.transactionDate = transactionDate;
+    }
+
+    public Item getTransactionItem(){
+        return item.getTarget();
+    }
+
+    public int getRemainingQuantity() {
+        return remainingQuantity;
+    }
+
+    public void setRemainingQuantity(int remainingQuantity) {
+        this.remainingQuantity = remainingQuantity;
     }
 
     @Override

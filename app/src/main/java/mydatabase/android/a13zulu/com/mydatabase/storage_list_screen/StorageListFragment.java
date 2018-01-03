@@ -122,7 +122,6 @@ public class StorageListFragment extends Fragment implements StorageListContract
     @Override
     public void showSuccessfullySavedMessage() {
         Toast.makeText(getContext(), "Storage Room successfully saved", Toast.LENGTH_LONG).show();
-        //TODO display notification of successfully added StorageRoom
     }
 
     @Override

@@ -30,6 +30,5 @@ public interface StorageRoomsDataSource {
     void getStorageRooms(@Nonnull LoadStorageRoomsCallback callback);
     void getStorageRoom(@Nonnull long storageRoomId, @Nonnull GetStorageRoomCallback callback);
     void saveStorageRoom(@Nonnull StorageRoom storageRoom);
-    void refreshStorageRooms();
     void deleteStorageRoom(@Nonnull long storageRoomId);
 }

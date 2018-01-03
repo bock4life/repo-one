@@ -20,7 +20,8 @@
             android:name=".item_addedit_screen.AddEditActivity"
             android:label="@string/title_activity_add_edit"
             android:parentActivityName=".item_list_screen.ItemListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mydatabase.android.a13zulu.com.mydatabase.item_list_screen.ItemListActivity"/>
@@ -30,7 +31,9 @@
             android:name=".storage_add_edit_screen.StorageAddEditActivity"
             android:label="AddEdit"
             android:parentActivityName=".storage_list_screen.StorageListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustPan">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".storage_list_screen.StorageListActivity"/>
