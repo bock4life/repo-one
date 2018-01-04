@@ -5,6 +5,8 @@ import android.util.Log;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
 
 /**
@@ -31,6 +33,21 @@ public class TransactionsRepository implements TransactionsDataSource{
     @Override
     public void getTransactions(long itemId, @NonNull final LoadTransactionsCallback callback) {
         mTransactionsDataSource.getTransactions(itemId, new LoadTransactionsCallback() {
+            @Override
+            public void onTransactionsLoaded(List<ItemTransaction> transactions) {
+                callback.onTransactionsLoaded(transactions);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
+    }
+
+    @Override
+    public void getTransactions(@Nonnull final LoadTransactionsCallback callback) {
+        mTransactionsDataSource.getTransactions(new LoadTransactionsCallback() {
             @Override
             public void onTransactionsLoaded(List<ItemTransaction> transactions) {
                 callback.onTransactionsLoaded(transactions);

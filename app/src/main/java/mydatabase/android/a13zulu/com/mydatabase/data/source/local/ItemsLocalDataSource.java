@@ -102,6 +102,17 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
     }
 
     @Override
+    public void getTransactions(@Nonnull LoadTransactionsCallback callback) {
+        Log.d(TAG, "getTransactions: called without item Id");
+        List<ItemTransaction> transactions = mTransactionBox.getAll();
+        if(transactions.isEmpty()){
+            callback.onDataNotAvailable();
+        }else{
+            callback.onTransactionsLoaded(transactions);
+        }
+    }
+
+    @Override
     public void getTransaction(long transactionId, @NonNull GetTransactionCallback callback) {
 
     }

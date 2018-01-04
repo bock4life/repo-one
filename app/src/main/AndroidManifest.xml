@@ -39,6 +39,14 @@
                 android:value=".storage_list_screen.StorageListActivity"/>
         </activity>
 
+        <activity android:name=".transaction_list_screen.TransactionListActivity"
+                  android:label="Item Transactions"
+                  android:parentActivityName=".welcome_screen.WelcomeActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".welcome_screen.WelcomeActivity"/>
+        </activity>
 
         <activity
             android:name=".storage_list_screen.StorageListActivity"

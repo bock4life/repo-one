@@ -3,7 +3,6 @@ package mydatabase.android.a13zulu.com.mydatabase.storage_list_screen;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import java.util.List;
 
 import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.data.StorageRoom;
-
-import static android.support.v4.util.Preconditions.checkNotNull;
 
 public class StorageRecyclerViewAdapter
         extends RecyclerView.Adapter<StorageRecyclerViewAdapter.StorageViewHolder> {
@@ -33,7 +30,7 @@ public class StorageRecyclerViewAdapter
     }
 
     private void setList(List<StorageRoom> storageRooms) {
-        mStorageRooms = checkNotNull(storageRooms);
+        mStorageRooms = storageRooms;
     }
 
     public void replaceData(List<StorageRoom> storageRooms) {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.storage_list_screen.StorageListActivity;
+import mydatabase.android.a13zulu.com.mydatabase.transaction_list_screen.TransactionListActivity;
 
 /**
  * Fragment containing UI elements of Welcome Screen.
@@ -122,6 +123,8 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View{
     @Override
     public void showTransactions() {
         Log.d(TAG, "showTransactions: called");
+        Intent intent = new Intent(getContext(), TransactionListActivity.class);
+        startActivity(intent);
     }
 
     @Override

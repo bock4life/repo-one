@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
 
 /**
@@ -24,6 +26,7 @@ public interface TransactionsDataSource {
     }
 
     void getTransactions(@Nullable long itemId, @NonNull LoadTransactionsCallback callback);
+    void getTransactions(@Nonnull LoadTransactionsCallback callback);
     void getTransaction(@NonNull long transactionId, @NonNull GetTransactionCallback callback);
     //void saveTransaction(@NonNull ItemTransaction transaction);
     void saveTransaction(@NonNull long itemId, @NonNull int transactionAmount);

@@ -102,6 +102,10 @@ public class Item {
         this.storageRoom = storageRoom;
     }
 
+    public StorageRoom getItemStorageRoom(){
+        return storageRoom.getTarget();
+    }
+
     @Override
     public String toString() {
         return ("Item id: " + id +

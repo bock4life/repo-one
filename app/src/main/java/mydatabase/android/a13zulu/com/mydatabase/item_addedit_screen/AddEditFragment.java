@@ -204,8 +204,10 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
 
     @Override
     public void updateUi() {
+
         hasNewData = true;
         mPresenter.populateItem();
+        mPresenter.loadTransactionList();
     }
 
 

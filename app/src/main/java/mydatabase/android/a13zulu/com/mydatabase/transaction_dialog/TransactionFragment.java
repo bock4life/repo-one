@@ -101,5 +101,4 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
         mHost.updateUi();
         getDialog().dismiss();
     }
-
 }

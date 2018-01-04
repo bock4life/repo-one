@@ -11,7 +11,6 @@ import mydatabase.android.a13zulu.com.mydatabase.Injection;
 import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
 
-//TODO make this activity load as default
 
 public class StorageListActivity extends AppCompatActivity {
     private static final String TAG = "StorageListActivity";
@@ -30,11 +29,13 @@ public class StorageListActivity extends AppCompatActivity {
 
         if(storageListFragment == null){
             storageListFragment = StorageListFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), storageListFragment, R.id.storage_activity_content_frame);
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    storageListFragment, R.id.storage_activity_content_frame);
         }
 
         // creating Presenter, it is passed to the View in its constructor
-        StorageListPresenter presenter = new StorageListPresenter(Injection.provideStorageRoomsRepository(getApplicationContext()), storageListFragment);
+        StorageListPresenter presenter =
+                new StorageListPresenter(Injection.provideStorageRoomsRepository(getApplicationContext()), storageListFragment);
     }
 
     @Override

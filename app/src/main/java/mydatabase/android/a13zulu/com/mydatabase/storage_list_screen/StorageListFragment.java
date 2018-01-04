@@ -87,7 +87,6 @@ public class StorageListFragment extends Fragment implements StorageListContract
     @Override
     public void setLoadingIndicator(boolean active) {
 
-
     }
 
     @Override

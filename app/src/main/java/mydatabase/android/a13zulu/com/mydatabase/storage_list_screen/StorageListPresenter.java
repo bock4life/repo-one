@@ -12,8 +12,6 @@ import mydatabase.android.a13zulu.com.mydatabase.data.source.StorageRoomsDataSou
 import mydatabase.android.a13zulu.com.mydatabase.data.source.StorageRoomsRepository;
 import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.StorageAddEditActivity;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
-
 /**
  * Listens to user actions from the UI {@link StorageListFragment},
  * retrieves the data and updates the UI as required.
@@ -30,8 +28,8 @@ public class StorageListPresenter implements StorageListContract.UserActionListe
 
     public StorageListPresenter(@Nonnull StorageRoomsRepository storageRoomsRepository,
                                 @Nonnull StorageListContract.View storageListView){
-        mStorageRoomsRepository = checkNotNull(storageRoomsRepository, "StorageRoomsRepository cannot be null");
-        mStorageListView = checkNotNull(storageListView, "StorageListView cannot be null");
+        mStorageRoomsRepository = storageRoomsRepository;
+        mStorageListView = storageListView;
 
         mStorageListView.setPresenter(this);
     }
