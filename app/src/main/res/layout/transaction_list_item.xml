@@ -12,26 +12,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:padding="8dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:text="TextView"
         android:textColor="@color/colorPrimaryText"
-        app:layout_constraintBottom_toBottomOf="@+id/transaction_list_item_storage"
-        app:layout_constraintEnd_toStartOf="@+id/transaction_list_item_date"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/transaction_list_item_storage"
-        app:layout_constraintTop_toTopOf="@+id/transaction_list_item_storage"/>
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/transaction_list_item_storage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:padding="8dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:text="TextView"
         android:textColor="@color/colorPrimaryText"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/transaction_list_item_item"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -40,41 +42,72 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:padding="8dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:text="TextView"
         android:textColor="@color/colorPrimaryText"
-        app:layout_constraintBottom_toBottomOf="@+id/transaction_list_item_item"
-        app:layout_constraintEnd_toStartOf="@+id/transaction_list_item_amount"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/transaction_list_item_item"
-        app:layout_constraintTop_toTopOf="@+id/transaction_list_item_item"/>
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/transaction_list_item_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:padding="8dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:text="TextView"
         android:textColor="@color/colorPrimaryText"
-        app:layout_constraintBottom_toBottomOf="@+id/transaction_list_item_date"
-        app:layout_constraintEnd_toStartOf="@+id/transaction_list_item_remaining"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/transaction_list_item_date"
-        app:layout_constraintTop_toTopOf="@+id/transaction_list_item_date"/>
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline14"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/transaction_list_item_remaining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:padding="8dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:text="TextView"
         android:textColor="@color/colorPrimaryText"
-        app:layout_constraintBottom_toBottomOf="@+id/transaction_list_item_amount"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/transaction_list_item_amount"
-        app:layout_constraintTop_toTopOf="@+id/transaction_list_item_amount"/>
+        app:layout_constraintStart_toStartOf="@+id/guideline14"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.18"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.36"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.60"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.80"/>
 
 </android.support.constraint.ConstraintLayout>
