@@ -14,6 +14,7 @@ import io.objectbox.BoxStore;
 import mydatabase.android.a13zulu.com.mydatabase.data.DaoSession;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
+import mydatabase.android.a13zulu.com.mydatabase.data.Item_;
 import mydatabase.android.a13zulu.com.mydatabase.data.MyObjectBox;
 import mydatabase.android.a13zulu.com.mydatabase.data.StorageRoom;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
@@ -36,7 +37,7 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
 
     private ItemsLocalDataSource(@NonNull Context context) {
 
-        mBoxStore = MyObjectBox.builder().androidContext(context).build(); //TODO confirm that context is correct
+        mBoxStore = MyObjectBox.builder().androidContext(context).build();
         mDaoSession = new DaoSession(mBoxStore);
 
         mItemBox = mBoxStore.boxFor(Item.class);
@@ -63,6 +64,15 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
         } else {
             callback.onItemsLoaded(items);
         }
+    }
+
+    @Override
+    public void getItems(int limit, @Nonnull LoadItemsCallback callback) {
+        //TODO test
+//        List<Item> outOfStockItems = mItemBox.query().less(Item_.itemQuantity, Double.valueOf(limit)).build().find();
+//        callback.onItemsLoaded(outOfStockItems);
+        List<Item> outOfStockItems = mItemBox.query().less(Item_.itemQuantity, limit).build().find();
+        callback.onItemsLoaded(outOfStockItems);
     }
 
     @Override

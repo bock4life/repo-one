@@ -24,13 +24,14 @@ public class TransactionListRecyclerAdapter
 
     public interface OnTransactionClickListener{
         void onStorageClick(long storageId);
-        void onItemClick(long itemId);
+        void onItemClick(long storageRoomId, long itemId);
     }
 
     TransactionListRecyclerAdapter (List<ItemTransaction> itemTransactions, OnTransactionClickListener listener){
         setList(itemTransactions);
         mClickListener = listener;
     }
+
 
     private void setList(List<ItemTransaction> itemTransactions){
         mItemTransactions = itemTransactions;
@@ -68,7 +69,8 @@ public class TransactionListRecyclerAdapter
             holder.itemName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mClickListener.onItemClick(transaction.getTransactionItem().getId());
+                    mClickListener.onItemClick(transaction.getTransactionItem().getItemStorageRoom().getId(),
+                            transaction.getTransactionItem().getId());
                 }
             });
         }

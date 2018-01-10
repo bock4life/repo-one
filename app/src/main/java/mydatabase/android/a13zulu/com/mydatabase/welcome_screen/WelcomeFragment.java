@@ -15,6 +15,8 @@ import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.storage_list_screen.StorageListActivity;
 import mydatabase.android.a13zulu.com.mydatabase.transaction_list_screen.TransactionListActivity;
 
+import static mydatabase.android.a13zulu.com.mydatabase.transaction_list_screen.TransactionListActivity.SHOW_OUT_OF_STOCK_ITEMS;
+
 /**
  * Fragment containing UI elements of Welcome Screen.
  */
@@ -130,6 +132,9 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View{
     @Override
     public void showOutOfStockItems() {
         Log.d(TAG, "showOutOfStockItems: called");
+        Intent intent = new Intent(getContext(), TransactionListActivity.class);
+        intent.putExtra(SHOW_OUT_OF_STOCK_ITEMS, true);
+        startActivity(intent);
     }
 
     @Override

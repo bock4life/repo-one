@@ -21,7 +21,6 @@ import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditActivity;
 import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.StorageAddEditFragment;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
 import static mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditFragment.ARGUMENT_EDIT_ITEM_ID;
 
 /**
@@ -89,7 +88,7 @@ public class ItemListFragment extends Fragment implements ItemListContract.View 
 
     @Override
     public void setPresenter(ItemListContract.UserActionListener presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     @Override
@@ -112,7 +111,6 @@ public class ItemListFragment extends Fragment implements ItemListContract.View 
 
     @Override
     public void showItemDetailsUi(long storageId, String itemId) {
-        Log.d(TAG, "showItemDetailsUi: called");
         Intent intent = new Intent(getContext(),AddEditActivity.class);
         intent.putExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, storageId);
         intent.putExtra(ARGUMENT_EDIT_ITEM_ID, itemId);

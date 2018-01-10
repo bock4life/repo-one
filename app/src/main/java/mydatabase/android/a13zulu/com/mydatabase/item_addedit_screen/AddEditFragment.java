@@ -83,6 +83,7 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
         mDescriptionEditText = rootView.findViewById(R.id.frag_add_edit_description_et);
         mQuantityEditText = rootView.findViewById(R.id.frag_add_edit_quantity_et);
         mSaveFb = rootView.findViewById(R.id.frag_add_edit_save_fab);
+
         mTransactionsRecyclerView = rootView.findViewById(R.id.frag_add_edit_transactions_rv);
         mTransactionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mTransactionsRecyclerView.setAdapter(mTransactionRecyclerAdapter);

@@ -63,6 +63,21 @@ public class ItemsRepository implements ItemsDataSource {
     }
 
     @Override
+    public void getItems(int limit, @Nonnull final LoadItemsCallback callback) {
+        mItemsDataSource.getItems(limit, new LoadItemsCallback() {
+            @Override
+            public void onItemsLoaded(List<Item> items) {
+                callback.onItemsLoaded(new ArrayList<>(items));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
+    }
+
+    @Override
     public void getItem(@NonNull long itemId, @NonNull final GetItemCallback callback) {
         Log.d(TAG, "getItem: called");
 

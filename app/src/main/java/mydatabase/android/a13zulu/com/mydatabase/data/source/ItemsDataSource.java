@@ -34,6 +34,14 @@ public interface ItemsDataSource {
 
 
     void getItems(@Nonnull long storageId, @NonNull LoadItemsCallback callback);
+
+    /**
+     *  User for querying Out of stock items.
+     *  Every item that has quantity lower than limit will be added to the list.
+     * @param limit number of items.
+     * @param callback passing received data back.
+     */
+    void getItems(int limit, @Nonnull LoadItemsCallback callback);
     void getItem(@NonNull long itemId, @NonNull GetItemCallback callback);
     void saveItem(@Nonnull long storageId, @NonNull Item item);
     void deleteItem(@NonNull long itemId);

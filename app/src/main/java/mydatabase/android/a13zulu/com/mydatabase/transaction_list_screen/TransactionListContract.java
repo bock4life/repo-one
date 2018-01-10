@@ -4,6 +4,7 @@ import java.util.List;
 
 import mydatabase.android.a13zulu.com.mydatabase.BasePresenter;
 import mydatabase.android.a13zulu.com.mydatabase.BaseView;
+import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
 
 /**
@@ -15,15 +16,17 @@ public interface TransactionListContract {
     interface View extends BaseView<UserActionListener>{
         void setLoadingIndicator(boolean active);
         void showTransactionList(List<ItemTransaction> itemTransactions);
+        void showOutOfStockItems(List<Item> lowStockItemTransactions);
         void showNoTransactions();
+        void showNoOutOfStockItems();
         void showStorageRoomUI(long storageRoomId);
-        void showItemDetailsUI(long itemId);
+        void showItemDetailsUI(long storageRoomId, long itemId);
     }
 
     // implemented by Presenter, instantiated by View
     interface UserActionListener extends BasePresenter{
-        void loadTransactionList();
+        void loadList();
         void openStorageRoomDetails(long storageRoomId);
-        void openItemDetails(long itemId);
+        void openItemDetails(long storageRoomId, long itemId);
     }
 }

@@ -11,4 +11,6 @@ public class Utils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return dateFormat.format(date);
     }
+
+    // TODO create methods for fetching Shared Preferences
 }

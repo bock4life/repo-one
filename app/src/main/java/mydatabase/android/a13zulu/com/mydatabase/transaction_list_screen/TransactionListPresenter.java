@@ -4,7 +4,10 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
+import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
+import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsRepository;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.TransactionsDataSource;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.TransactionsRepository;
 
@@ -17,13 +20,21 @@ public class TransactionListPresenter implements TransactionListContract.UserAct
     private static final String TAG = "TransactionsPresenter";
 
     private final TransactionsRepository mTransactionsRepository;
+    private final ItemsRepository mItemsRepository;
     private final TransactionListContract.View mView;
 
+    private boolean mShowOutOfStock = false;
+
+    //private static boolean hasNewData = false;
 
     public TransactionListPresenter(@Nonnull TransactionsRepository transactionsRepository,
-                                    @Nonnull TransactionListContract.View view){
+                                    @Nonnull ItemsRepository itemsRepository,
+                                    @Nonnull TransactionListContract.View view,
+                                    boolean showOutOfStock){
         mTransactionsRepository = transactionsRepository;
+        mItemsRepository = itemsRepository;
         mView = view;
+        mShowOutOfStock = showOutOfStock;
 
         mView.setPresenter(this);
     }
@@ -34,8 +45,35 @@ public class TransactionListPresenter implements TransactionListContract.UserAct
     }
 
     @Override
-    public void loadTransactionList() {
-        loadTransactions();
+    public void loadList() {
+        if(mShowOutOfStock){
+            loadOutOfStockItems();
+        }else{
+            loadTransactions();
+        }
+    }
+
+
+    private void loadOutOfStockItems(){
+        mItemsRepository.getItems(5, new ItemsDataSource.LoadItemsCallback() {
+            @Override
+            public void onItemsLoaded(List<Item> items) {
+                processItemList(items);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
+    }
+
+    private void processItemList(List<Item> items){
+        if(items.isEmpty()){
+            mView.showNoOutOfStockItems();
+        }else{
+            mView.showOutOfStockItems(items);
+        }
     }
 
     private void loadTransactions(){
@@ -66,7 +104,7 @@ public class TransactionListPresenter implements TransactionListContract.UserAct
     }
 
     @Override
-    public void openItemDetails(long itemId) {
-        mView.showItemDetailsUI(itemId);
+    public void openItemDetails(long storageId, long itemId) {
+        mView.showItemDetailsUI(storageId, itemId);
     }
 }
