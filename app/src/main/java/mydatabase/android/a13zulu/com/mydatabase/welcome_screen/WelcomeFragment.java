@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import mydatabase.android.a13zulu.com.mydatabase.R;
+import mydatabase.android.a13zulu.com.mydatabase.settings_screen.SettingsActivity;
 import mydatabase.android.a13zulu.com.mydatabase.storage_list_screen.StorageListActivity;
 import mydatabase.android.a13zulu.com.mydatabase.transaction_list_screen.TransactionListActivity;
 
@@ -140,5 +141,7 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View{
     @Override
     public void showSettings() {
         Log.d(TAG, "showSettings: called");
+        Intent intent = new Intent(getContext(), SettingsActivity.class);
+        startActivity(intent);
     }
 }

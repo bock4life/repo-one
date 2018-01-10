@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <mydatabase.android.a13zulu.com.mydatabase.Utils.IntegerEditTextPreference
+        android:defaultValue="0"
+        android:inputType="number"
+        android:key="pref_out_of_stock_limit"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Out of stock warning"/>
+</PreferenceScreen>
