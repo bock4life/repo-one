@@ -16,10 +16,13 @@ public interface WelcomeContract {
         void showTransactions();
         void showOutOfStockItems();
         void showSettings();
+        void setLimit(int limit);
+        void displayOutOfStockItemNumber(int outOfStockItemNumber);
     }
 
     // implemented by Presenter, instantiated in View
     interface UserActionListener extends BasePresenter{
+        void loadOutOfStockItemNumber();
         void storageListClicked();
         void transactionsClicked();
         void outOfStockClicked();

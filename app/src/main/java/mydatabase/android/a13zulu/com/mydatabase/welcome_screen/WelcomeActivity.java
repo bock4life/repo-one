@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import mydatabase.android.a13zulu.com.mydatabase.Injection;
 import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
 
@@ -11,7 +12,7 @@ import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
  * Displays welcome screen.
  */
 //TODO register this activity in manifest
-public class WelcomeActivity extends AppCompatActivity{
+public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -19,11 +20,13 @@ public class WelcomeActivity extends AppCompatActivity{
         setContentView(R.layout.activity_welcome);
 
         WelcomeFragment welcomeFragment = (WelcomeFragment) getSupportFragmentManager().findFragmentById(R.id.welcome_content_frame);
-        if(welcomeFragment == null){
+        if (welcomeFragment == null) {
             welcomeFragment = WelcomeFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), welcomeFragment, R.id.welcome_content_frame);
         }
 
-        WelcomePresenter presenter = new WelcomePresenter(welcomeFragment);
+        WelcomePresenter presenter = new WelcomePresenter(welcomeFragment,
+                ActivityUtils.getOutOfStockSharedPref(this),
+                Injection.provideItemsRepository(getApplicationContext()));
     }
 }

@@ -32,9 +32,14 @@ public interface ItemsDataSource {
         void onDataNotAvailable();
     }
 
+    interface GetOutOfStockItemsNumber{
 
+        void onOutOfStockNumberLoaded(int numberOfItems);
+    }
+
+
+    void getOutOfStockNumber(int limit, @Nonnull GetOutOfStockItemsNumber callback);
     void getItems(@Nonnull long storageId, @NonNull LoadItemsCallback callback);
-
     /**
      *  User for querying Out of stock items.
      *  Every item that has quantity lower than limit will be added to the list.

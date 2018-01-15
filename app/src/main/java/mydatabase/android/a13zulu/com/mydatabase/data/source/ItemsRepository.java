@@ -46,6 +46,16 @@ public class ItemsRepository implements ItemsDataSource {
     }
 
     @Override
+    public void getOutOfStockNumber(int limit, @Nonnull final GetOutOfStockItemsNumber callback) {
+        mItemsDataSource.getOutOfStockNumber(limit, new GetOutOfStockItemsNumber() {
+            @Override
+            public void onOutOfStockNumberLoaded(int numberOfItems) {
+                callback.onOutOfStockNumberLoaded(numberOfItems);
+            }
+        });
+    }
+
+    @Override
     public void getItems(@Nonnull long storageId, @NonNull final LoadItemsCallback callback) {
         Log.d(TAG, "getItems: called");
 

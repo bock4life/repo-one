@@ -1,6 +1,11 @@
 package mydatabase.android.a13zulu.com.mydatabase.welcome_screen;
 
+import android.util.Log;
+
 import javax.annotation.Nonnull;
+
+import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
+import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsRepository;
 
 /**
  * Listens to user actions from the UI {@link WelcomeFragment}.
@@ -11,15 +16,37 @@ public class WelcomePresenter implements WelcomeContract.UserActionListener{
 
     @Nonnull
     private final WelcomeContract.View mView;
+    private int mOutOfStockItemLimit;
 
-    public WelcomePresenter(@Nonnull WelcomeContract.View welcomeFragment){
+    private final ItemsRepository mItemsRepository;
+
+    
+    public WelcomePresenter(@Nonnull WelcomeContract.View welcomeFragment, int outOfStockItemLimit, ItemsRepository itemsRepository){
         mView = welcomeFragment;
+        mOutOfStockItemLimit = outOfStockItemLimit;
+        mItemsRepository = itemsRepository;
         mView.setPresenter(this);
     }
 
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void loadOutOfStockItemNumber() {
+        getOutOfStockNumber();
+    }
+
+    private void getOutOfStockNumber(){
+        Log.d(TAG, "getOutOfStockNumber: called with limit: " + mOutOfStockItemLimit);
+        mItemsRepository.getOutOfStockNumber(mOutOfStockItemLimit, new ItemsDataSource.GetOutOfStockItemsNumber() {
+            @Override
+            public void onOutOfStockNumberLoaded(int numberOfItems) {
+                mView.displayOutOfStockItemNumber(numberOfItems);
+                mView.setLimit(mOutOfStockItemLimit);
+            }
+        });
     }
 
     @Override

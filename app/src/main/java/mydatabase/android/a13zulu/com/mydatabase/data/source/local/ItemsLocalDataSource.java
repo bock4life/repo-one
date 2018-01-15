@@ -52,6 +52,8 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
         return INSTANCE;
     }
 
+
+
     /**
      * Operations with Items
      */
@@ -68,11 +70,14 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
 
     @Override
     public void getItems(int limit, @Nonnull LoadItemsCallback callback) {
-        //TODO test
-//        List<Item> outOfStockItems = mItemBox.query().less(Item_.itemQuantity, Double.valueOf(limit)).build().find();
-//        callback.onItemsLoaded(outOfStockItems);
         List<Item> outOfStockItems = mItemBox.query().less(Item_.itemQuantity, limit).build().find();
         callback.onItemsLoaded(outOfStockItems);
+    }
+
+    @Override
+    public void getOutOfStockNumber(int limit, @Nonnull GetOutOfStockItemsNumber callback) {
+        int numberOfOutOfStockItem = mItemBox.query().less(Item_.itemQuantity, limit).build().find().size();
+        callback.onOutOfStockNumberLoaded(numberOfOutOfStockItem);
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import mydatabase.android.a13zulu.com.mydatabase.R;
+import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
 import mydatabase.android.a13zulu.com.mydatabase.settings_screen.SettingsActivity;
 import mydatabase.android.a13zulu.com.mydatabase.storage_list_screen.StorageListActivity;
 import mydatabase.android.a13zulu.com.mydatabase.transaction_list_screen.TransactionListActivity;
@@ -24,7 +25,7 @@ import static mydatabase.android.a13zulu.com.mydatabase.transaction_list_screen.
 
 public class WelcomeFragment extends Fragment implements WelcomeContract.View{
     private static final String TAG = "WelcomeFragment";
-
+    private static int mCurrentOutOfStockLimit;
     private WelcomeContract.UserActionListener mPresenter;
 
     private ImageView mStorageRoomsImageView;
@@ -110,6 +111,7 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View{
         mSettingsImageView.setOnClickListener(settingsClick);
         mSettingsTextView.setOnClickListener(settingsClick);
 
+        mPresenter.loadOutOfStockItemNumber();
 
 
 
@@ -143,5 +145,23 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View{
         Log.d(TAG, "showSettings: called");
         Intent intent = new Intent(getContext(), SettingsActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void setLimit(int limit) {
+        mCurrentOutOfStockLimit = limit;
+    }
+
+    @Override
+    public void displayOutOfStockItemNumber(int outOfStockItemNumber) {
+        mOutOfStockNumberTextView.setText(String.valueOf(outOfStockItemNumber));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mCurrentOutOfStockLimit!= ActivityUtils.getOutOfStockSharedPref(getContext())){
+            mPresenter.loadOutOfStockItemNumber();
+        }
     }
 }
