@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mydatabase.android.a13zulu.com.mydatabase.R;
+import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
 import mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditActivity;
@@ -29,6 +30,7 @@ import static mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddE
 
 public class TransactionListFragment extends Fragment implements TransactionListContract.View {
     private static final String TAG = "TransactionListFragment";
+    private static int mOutOfStockLimit;
 
     private TransactionListRecyclerAdapter mTransactionAdapter;
     private OutOfStockItemAdapter mItemAdapter;
@@ -76,6 +78,7 @@ public class TransactionListFragment extends Fragment implements TransactionList
         if (args != null) {
             Log.d(TAG, "onCreate: Item Adapter created");
             mItemAdapter = new OutOfStockItemAdapter(new ArrayList<Item>(0), mItemClickListener);
+            mOutOfStockLimit = ActivityUtils.getOutOfStockSharedPref(getContext());
         } else {
             Log.d(TAG, "onCreate: Transaction Adapter created");
             mTransactionAdapter = new TransactionListRecyclerAdapter(new ArrayList<ItemTransaction>(0), mClickListener);
@@ -98,7 +101,7 @@ public class TransactionListFragment extends Fragment implements TransactionList
             recyclerView.setAdapter(mTransactionAdapter);
         }
 
-        mPresenter.loadList();
+        mPresenter.loadList(mOutOfStockLimit);
         return rootView;
     }
 
@@ -146,4 +149,5 @@ public class TransactionListFragment extends Fragment implements TransactionList
         intent.putExtra(ARGUMENT_EDIT_ITEM_ID, String.valueOf(itemId));
         startActivityForResult(intent, AddEditActivity.REQUEST_EDIT_ITEM);
     }
+
 }

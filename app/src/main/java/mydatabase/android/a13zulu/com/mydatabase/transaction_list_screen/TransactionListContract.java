@@ -25,7 +25,7 @@ public interface TransactionListContract {
 
     // implemented by Presenter, instantiated by View
     interface UserActionListener extends BasePresenter{
-        void loadList();
+        void loadList(int outOfStockLimit);
         void openStorageRoomDetails(long storageRoomId);
         void openItemDetails(long storageRoomId, long itemId);
     }

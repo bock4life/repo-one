@@ -25,7 +25,6 @@ public class TransactionListPresenter implements TransactionListContract.UserAct
 
     private boolean mShowOutOfStock = false;
 
-    //private static boolean hasNewData = false;
 
     public TransactionListPresenter(@Nonnull TransactionsRepository transactionsRepository,
                                     @Nonnull ItemsRepository itemsRepository,
@@ -45,17 +44,17 @@ public class TransactionListPresenter implements TransactionListContract.UserAct
     }
 
     @Override
-    public void loadList() {
+    public void loadList(int outOfStockLimit) {
         if(mShowOutOfStock){
-            loadOutOfStockItems();
+            loadOutOfStockItems(outOfStockLimit);
         }else{
             loadTransactions();
         }
     }
 
 
-    private void loadOutOfStockItems(){
-        mItemsRepository.getItems(5, new ItemsDataSource.LoadItemsCallback() {
+    private void loadOutOfStockItems(int limit){
+        mItemsRepository.getItems(limit, new ItemsDataSource.LoadItemsCallback() {
             @Override
             public void onItemsLoaded(List<Item> items) {
                 processItemList(items);

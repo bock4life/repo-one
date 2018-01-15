@@ -20,7 +20,7 @@ public class WelcomePresenter implements WelcomeContract.UserActionListener{
 
     private final ItemsRepository mItemsRepository;
 
-    
+
     public WelcomePresenter(@Nonnull WelcomeContract.View welcomeFragment, int outOfStockItemLimit, ItemsRepository itemsRepository){
         mView = welcomeFragment;
         mOutOfStockItemLimit = outOfStockItemLimit;
