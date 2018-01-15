@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditFragment"
+    android:background="@color/colorPrimaryLight"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    >
+    tools:context="mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditFragment">
 
 
     <EditText
@@ -47,7 +47,9 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="Quantity:"
+        android:textColor="@color/colorPrimaryText"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/frag_add_edit_quantity_et"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -63,6 +65,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:fontFamily="@font/montserrat"
         android:inputType="number"
         android:text="0"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"

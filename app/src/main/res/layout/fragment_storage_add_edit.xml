@@ -6,6 +6,7 @@
     android:id="@+id/frag_storage_addedit_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     tools:layout_editor_absoluteY="81dp">
 
     <EditText
@@ -59,30 +60,30 @@
             android:tag="1"/>
 
         <RadioButton
-            android:tag="2"
             android:id="@+id/frag_storage_addedit_color2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/color2"
+            android:tag="2"
             />
 
         <RadioButton
-            android:tag="3"
             android:id="@+id/frag_storage_addedit_color3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/color3"
+            android:tag="3"
             />
 
         <RadioButton
-            android:tag="4"
             android:id="@+id/frag_storage_addedit_color4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/color4"
+            android:tag="4"
             />
     </RadioGroup>
 

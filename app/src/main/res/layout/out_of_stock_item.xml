@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/colorPrimaryLight"
     app:cardCornerRadius="5dp"
     app:cardElevation="2dp">
 
@@ -20,6 +21,7 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:text="storage name"
+            android:textAlignment="center"
             android:textColor="@color/colorPrimaryText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/outofstock_item_name"
@@ -35,6 +37,7 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:text="item name"
+            android:textAlignment="center"
             android:textColor="@color/colorPrimaryText"
             app:layout_constraintBottom_toBottomOf="@+id/outofstock_storage_name"
             app:layout_constraintEnd_toStartOf="@+id/outofstock_remaining_qty"
@@ -50,6 +53,7 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:text="remaining quantity"
+            android:textAlignment="center"
             android:textColor="@color/colorPrimaryText"
             app:layout_constraintBottom_toBottomOf="@+id/outofstock_item_name"
             app:layout_constraintEnd_toEndOf="parent"

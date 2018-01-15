@@ -52,9 +52,8 @@ public class StorageRecyclerViewAdapter
 
             holder.name.setText(storage.getName());
             holder.description.setText(storage.getDescription());
-//            holder.numberOfItems.setText(storage.getItems().size()); //TODO fix resource exception
+            holder.numberOfItems.setText(String.valueOf(storage.getItems().size())); //TODO fix resource exception
             holder.cardView.setCardBackgroundColor(storage.getBackgroundColor());
-            //holder.lastAccess.setText(storage.getLastAccessed().toString());
 
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,7 +75,6 @@ public class StorageRecyclerViewAdapter
         TextView name = null;
         TextView description = null;
         TextView numberOfItems = null;
-        TextView lastAccess = null;
         CardView cardView = null;
 
         public StorageViewHolder(View itemView) {
@@ -85,7 +83,6 @@ public class StorageRecyclerViewAdapter
             this.name = itemView.findViewById(R.id.storage_list_item_name);
             this.description = itemView.findViewById(R.id.storage_list_item_description);
             this.numberOfItems = itemView.findViewById(R.id.storage_list_Item_qty);
-            this.lastAccess = itemView.findViewById(R.id.storage_list_item_lastAccessDate);
             this.cardView = itemView.findViewById(R.id.storage_list_item_card_view);
         }
     }
