@@ -28,7 +28,7 @@ public interface StorageListContract {
     // Implemented by Presenter
     // Instantiated by View
     interface UserActionListener extends BasePresenter{
-        void result(int requestCode, int resultCode); // TODO implement
+        void result(int requestCode, int resultCode);
         void loadStorageRooms();
         void addNewStorageRoom(); // opens blank Storage AddEdit screen
         void openStorageRoomDetails(@Nonnull StorageRoom requestedStorageRoom);// open ItemsListActivity

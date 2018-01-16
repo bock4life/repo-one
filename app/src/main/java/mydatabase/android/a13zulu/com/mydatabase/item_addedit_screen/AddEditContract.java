@@ -10,8 +10,6 @@ import mydatabase.android.a13zulu.com.mydatabase.data.ItemTransaction;
  * Contract between the view and the presenter
  */
 
-//// FIXME: 10/11/2017 editing an existing item add's a new one instead
-
 public interface AddEditContract {
 
     //Implemented by View

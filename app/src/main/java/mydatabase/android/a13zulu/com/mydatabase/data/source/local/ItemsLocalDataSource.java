@@ -88,7 +88,6 @@ public class ItemsLocalDataSource implements ItemsDataSource, TransactionsDataSo
 
     @Override
     public void saveItem(long storageId, @NonNull Item item) {
-        //TODO update with relation to StorageRoom
         Log.d(TAG, "saveItem: called");
         StorageRoom storage = mStorageRoomBox.get(storageId);
         storage.getItems().add(item);

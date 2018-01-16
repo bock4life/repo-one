@@ -179,7 +179,6 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
     public void enableTransactionList() {
         mQuantityEditText.setFocusableInTouchMode(false);
         mQuantityEditText.setInputType(InputType.TYPE_NULL);
-        //TODO create Text Views with titles for transaction list
     }
 
     @Override

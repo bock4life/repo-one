@@ -101,8 +101,16 @@ public class TransactionListFragment extends Fragment implements TransactionList
             recyclerView.setAdapter(mTransactionAdapter);
         }
 
+        //TODO hide title Text Views if fragment is displaying out of stock items
+
         mPresenter.loadList(mOutOfStockLimit);
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.loadList(mOutOfStockLimit);
     }
 
     @Override

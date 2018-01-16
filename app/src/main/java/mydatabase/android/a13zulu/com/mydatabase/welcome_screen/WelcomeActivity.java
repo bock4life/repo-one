@@ -11,7 +11,6 @@ import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
 /**
  * Displays welcome screen.
  */
-//TODO register this activity in manifest
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override

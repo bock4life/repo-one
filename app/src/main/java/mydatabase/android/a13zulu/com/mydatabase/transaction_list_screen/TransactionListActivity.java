@@ -2,6 +2,7 @@ package mydatabase.android.a13zulu.com.mydatabase.transaction_list_screen;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,6 +26,9 @@ public class TransactionListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transaction_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         TransactionListFragment transactionListFragment =
                 (TransactionListFragment) getSupportFragmentManager().findFragmentById(R.id.transaction_list_activity_content_frame);

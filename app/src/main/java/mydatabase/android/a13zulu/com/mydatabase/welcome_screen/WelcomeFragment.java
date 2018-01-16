@@ -70,8 +70,6 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View{
         mSettingsImageView = rootView.findViewById(R.id.frag_welcome_settings_iv);
         mSettingsTextView = rootView.findViewById(R.id.frag_welcome_settings_tv);
 
-
-        //TODO create FrameLayouts for all View Group and replace the individual listeners
         View.OnClickListener storageClick = new View.OnClickListener() {
             @Override
             public void onClick(View view) {

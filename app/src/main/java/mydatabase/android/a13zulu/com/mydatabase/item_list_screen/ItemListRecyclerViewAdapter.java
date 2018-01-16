@@ -13,8 +13,6 @@ import java.util.List;
 import mydatabase.android.a13zulu.com.mydatabase.R;
 import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
-
 
 public class ItemListRecyclerViewAdapter
         extends RecyclerView.Adapter<ItemListRecyclerViewAdapter.ItemViewHolder> {
@@ -36,7 +34,7 @@ public class ItemListRecyclerViewAdapter
     }
 
     private void setList(List<Item> items) {
-        mItems = checkNotNull(items);
+        mItems = items;
     }
 
     public void replaceData(List<Item> items) {
@@ -59,6 +57,7 @@ public class ItemListRecyclerViewAdapter
             holder.name.setText(item.getItemName());
             holder.description.setText(item.getItemDescription());
             holder.quantity.setText(String.valueOf(item.getItemQuantity()));
+            holder.mCardView.setCardBackgroundColor(item.getItemStorageRoom().getBackgroundColor());
 
             holder.mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override

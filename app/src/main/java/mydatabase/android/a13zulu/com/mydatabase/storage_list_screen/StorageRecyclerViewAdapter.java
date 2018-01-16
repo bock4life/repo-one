@@ -52,13 +52,12 @@ public class StorageRecyclerViewAdapter
 
             holder.name.setText(storage.getName());
             holder.description.setText(storage.getDescription());
-            holder.numberOfItems.setText(String.valueOf(storage.getItems().size())); //TODO fix resource exception
+            holder.numberOfItems.setText(String.valueOf(storage.getItems().size()));
             holder.cardView.setCardBackgroundColor(storage.getBackgroundColor());
 
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Log.d(TAG, "onClick: called on storage:" + position);
                     mListener.onStorageClick(storage);
                 }
             });

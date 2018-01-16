@@ -21,6 +21,7 @@ import static mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddE
  * Creates instance of TransactionPresenter
  */
 
+//// FIXME: 15/01/2018 negative number can't be entered from the soft keyboard
 public class TransactionFragment extends android.support.v4.app.DialogFragment implements TransactionContract.View{
     private static final String TAG = "TransactionFragment";
     public static final String TRANSACTION_FRAGMENT = "TRANSACTION_FRAGMENT";
@@ -54,7 +55,7 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
         Bundle args = getArguments();
         mItemId = args.getLong(ARGUMENT_EDIT_ITEM_ID);
 
-        mPresenter = new TransactionPresenter(mItemId, this, Injection.provideTransactionRepository(getContext()));//TODO check if functioning as intended
+        mPresenter = new TransactionPresenter(mItemId, this, Injection.provideTransactionRepository(getContext()));
 
         plusButton = rootView.findViewById(R.id.frag_trans_plus_btn);
         minusButton = rootView.findViewById(R.id.frag_trans_minus_btn);

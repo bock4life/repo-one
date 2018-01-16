@@ -2,6 +2,7 @@ package mydatabase.android.a13zulu.com.mydatabase.storage_list_screen;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,6 +24,9 @@ public class StorageListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_storage_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         StorageListFragment storageListFragment =
                 (StorageListFragment) getSupportFragmentManager().findFragmentById(R.id.storage_activity_content_frame);

@@ -6,8 +6,6 @@ import mydatabase.android.a13zulu.com.mydatabase.BaseView;
 /**
  * Contract between the view and the presenter
  */
-
-//TODO add functionality do display number of items that are out of stock.
 public interface WelcomeContract {
 
     // implemented by View
