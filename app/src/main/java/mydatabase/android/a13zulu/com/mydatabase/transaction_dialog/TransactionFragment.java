@@ -2,7 +2,6 @@ package mydatabase.android.a13zulu.com.mydatabase.transaction_dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import mydatabase.android.a13zulu.com.mydatabase.Injection;
 import mydatabase.android.a13zulu.com.mydatabase.R;
 
+import static mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditFragment.ARGUMENT_CURRENT_QUANTITY;
 import static mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditFragment.ARGUMENT_EDIT_ITEM_ID;
 
 /**
@@ -21,7 +21,7 @@ import static mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddE
  * Creates instance of TransactionPresenter
  */
 
-//// FIXME: 15/01/2018 negative number can't be entered from the soft keyboard
+//// FIXME: item quantity can be negative
 public class TransactionFragment extends android.support.v4.app.DialogFragment implements TransactionContract.View{
     private static final String TAG = "TransactionFragment";
     public static final String TRANSACTION_FRAGMENT = "TRANSACTION_FRAGMENT";
@@ -32,6 +32,8 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
     private ImageButton saveButton;
 
     private long mItemId; // pass it as a bundle arguments when creating a dialog fragment
+
+    private int mCurrentQuantity;
 
     private int transactionQuantity = 0;
 
@@ -54,6 +56,9 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
 
         Bundle args = getArguments();
         mItemId = args.getLong(ARGUMENT_EDIT_ITEM_ID);
+        mCurrentQuantity = args.getInt(ARGUMENT_CURRENT_QUANTITY);
+        mHost = (TransactionDialogCallbackContract) getTargetFragment();
+
 
         mPresenter = new TransactionPresenter(mItemId, this, Injection.provideTransactionRepository(getContext()));
 
@@ -81,13 +86,19 @@ public class TransactionFragment extends android.support.v4.app.DialogFragment i
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.performTransaction(mItemId, transactionQuantity);
-                Log.d(TAG, "onClick: called, item ID: " + mItemId + " , amount:" + transactionQuantity);
+                transactionQuantity = Integer.parseInt(quantityView.getText().toString());
+                if(transactionQuantity == 0 ){
+                    getDialog().dismiss();
+                }
+                else if(transactionQuantity < 0 && mCurrentQuantity - Math.abs(transactionQuantity) < 0){
+                    getDialog().dismiss();
+                    mHost.showNotEnoughItemsError();
+                }
+                else{
+                    mPresenter.performTransaction(mItemId, transactionQuantity);
+                }
             }
         });
-
-        mHost = (TransactionDialogCallbackContract) getTargetFragment();
-
 
         return rootView;
     }

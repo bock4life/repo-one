@@ -7,4 +7,5 @@ package mydatabase.android.a13zulu.com.mydatabase.transaction_dialog;
 public interface TransactionDialogCallbackContract {
 
     void updateUi();
+    void showNotEnoughItemsError();
 }

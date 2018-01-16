@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ import static mydatabase.android.a13zulu.com.mydatabase.transaction_dialog.Trans
 public class AddEditFragment extends BaseFragment implements AddEditContract.View, TransactionDialogCallbackContract {
 
     public static final String ARGUMENT_EDIT_ITEM_ID = "EDIT_ITEM_ID";
+    public static final String ARGUMENT_CURRENT_QUANTITY = "CURRENT_QUANTITY";
     private static final String TAG = "AddEditFragment";
 
     private AddEditContract.UserActionListener mPresenter;
@@ -43,6 +45,7 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
     private FloatingActionButton mSaveFb;
     private ItemTransactionRecyclerAdapter mTransactionRecyclerAdapter;
     private RecyclerView mTransactionsRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
 
     private boolean hasNewData = false;
 
@@ -85,7 +88,12 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
         mSaveFb = rootView.findViewById(R.id.frag_add_edit_save_fab);
 
         mTransactionsRecyclerView = rootView.findViewById(R.id.frag_add_edit_transactions_rv);
-        mTransactionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mLinearLayoutManager.setReverseLayout(true);
+        mLinearLayoutManager.setStackFromEnd(true);
+
+
+        mTransactionsRecyclerView.setLayoutManager(mLinearLayoutManager);
         mTransactionsRecyclerView.setAdapter(mTransactionRecyclerAdapter);
 
         mPresenter.loadTransactionList();
@@ -197,6 +205,7 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
         TransactionFragment fragment = TransactionFragment.newInstance();
         Bundle args = new Bundle();
         args.putLong(ARGUMENT_EDIT_ITEM_ID, itemId);
+        args.putInt(ARGUMENT_CURRENT_QUANTITY, Integer.parseInt(mQuantityEditText.getText().toString()));
         fragment.setArguments(args);
         fragment.setTargetFragment(this, 0);
         fragment.show(getFragmentManager(),TRANSACTION_FRAGMENT);
@@ -204,10 +213,16 @@ public class AddEditFragment extends BaseFragment implements AddEditContract.Vie
 
     @Override
     public void updateUi() {
-
+        Log.d(TAG, "updateUi: called");
         hasNewData = true;
         mPresenter.populateItem();
         mPresenter.loadTransactionList();
+    }
+
+    @Override
+    public void showNotEnoughItemsError() {
+        Log.d(TAG, "showNotEnoughItemsError: called");
+        Toast.makeText(getContext(),"Not enough items in stock to perform this transaction", Toast.LENGTH_LONG).show();
     }
 
 
