@@ -77,6 +77,6 @@ public class StorageListPresenter implements StorageListContract.UserActionListe
 
     @Override
     public void openStorageRoomDetails(@Nonnull StorageRoom requestedStorageRoom) {
-        mStorageListView.showStorageRoomUI(requestedStorageRoom.getId());
+        mStorageListView.showStorageRoomUI(requestedStorageRoom.getId(), requestedStorageRoom.getName());
     }
 }

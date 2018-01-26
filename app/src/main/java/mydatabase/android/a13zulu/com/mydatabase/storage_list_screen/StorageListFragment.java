@@ -102,9 +102,11 @@ public class StorageListFragment extends Fragment implements StorageListContract
     }
 
     @Override
-    public void showStorageRoomUI(long storageRoomId) {
+    public void showStorageRoomUI(long storageRoomId, String storageName) {
         Intent intent = new Intent(getContext(), ItemListActivity.class);
         intent.putExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID, storageRoomId);
+        intent.putExtra(StorageAddEditFragment.ARGUMENT_STORAGE_NAME, storageName);
+
         startActivity(intent);
     }
 

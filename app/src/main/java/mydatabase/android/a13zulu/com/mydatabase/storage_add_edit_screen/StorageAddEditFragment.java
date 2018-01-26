@@ -22,6 +22,7 @@ public class StorageAddEditFragment extends Fragment implements StorageAddEditCo
     private static final String TAG = "StorageAddEditFragment";
 
     public static final String ARGUMENT_EDIT_STORAGE_ROOM_ID = "STORAGE_ROOM_ID";
+    public static final String ARGUMENT_STORAGE_NAME = "STORAGE_ROOM_NAME"; // used for title
 
     private StorageAddEditContract.UserActionListener mPresenter;
 

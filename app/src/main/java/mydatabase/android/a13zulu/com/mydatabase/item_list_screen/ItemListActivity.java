@@ -27,6 +27,8 @@ public class ItemListActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
 
         long storageId = getIntent().getLongExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID,0);
+        String storageName = getIntent().getStringExtra(StorageAddEditFragment.ARGUMENT_STORAGE_NAME);
+        setTitle(storageName);
         if(storageId != 0){
             mStorageId = storageId;
         }

@@ -21,7 +21,6 @@ import static mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddE
  * Creates instance of TransactionPresenter
  */
 
-//// FIXME: item quantity can be negative
 public class TransactionFragment extends android.support.v4.app.DialogFragment implements TransactionContract.View{
     private static final String TAG = "TransactionFragment";
     public static final String TRANSACTION_FRAGMENT = "TRANSACTION_FRAGMENT";

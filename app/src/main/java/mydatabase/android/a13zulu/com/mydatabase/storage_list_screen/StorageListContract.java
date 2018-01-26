@@ -20,7 +20,7 @@ public interface StorageListContract {
         void setLoadingIndicator(boolean active);
         void showStorageRooms(List<StorageRoom> storageRooms);
         void showAddStorageRoom();
-        void showStorageRoomUI(long storageRoomId);
+        void showStorageRoomUI(long storageRoomId, String storageName);
         void showLoadingStorageRoomsError();
         void showNoStorageRooms();
         void showSuccessfullySavedMessage();
