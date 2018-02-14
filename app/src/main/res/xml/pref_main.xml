@@ -9,6 +9,12 @@
         android:singleLine="true"
         android:title="Out of stock warning"/>
 
+    <Preference
+        android:title="Erase data"
+        android:key="@string/pref_erase_data_key"
+        android:summary="All records will be removed from the database."/>
+
+
     <!--<ListPreference-->
         <!--android:defaultValue="180"-->
         <!--android:entries="@array/pref_sync_frequency_titles"-->

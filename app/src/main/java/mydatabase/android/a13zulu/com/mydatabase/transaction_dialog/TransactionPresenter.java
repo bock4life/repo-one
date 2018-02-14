@@ -5,8 +5,6 @@ import android.util.Log;
 
 import mydatabase.android.a13zulu.com.mydatabase.data.source.TransactionsDataSource;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
-
 /**
  * Listens for User input from {@link TransactionFragment} and updates UI as needed
  */
@@ -35,9 +33,9 @@ public class TransactionPresenter implements TransactionContract.UserActionListe
     public TransactionPresenter(@NonNull long itemId,
                                 @NonNull TransactionContract.View fragment,
                                 @NonNull TransactionsDataSource transactionsRepository) {
-        mItemId = checkNotNull(itemId);
-        mTransactionView = checkNotNull(fragment);
-        mTransactionsRepository = checkNotNull(transactionsRepository);
+        mItemId = itemId;
+        mTransactionView = fragment;
+        mTransactionsRepository = transactionsRepository;
     }
 
     @Override

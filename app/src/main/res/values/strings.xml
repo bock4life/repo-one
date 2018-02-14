@@ -4,8 +4,11 @@
     <string name="title_activity_add_edit">AddEdit</string>
     <string name="storage_room_list">Storage Rooms</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
 
     <!-- Strings related to Settings -->
+    <string name="pref_erase_data_key"><xliff:g id="preference_erase_data_key">pref_erase_data</xliff:g></string>
 
     <string name="pref_out_of_stock_limit_key"><xliff:g id="preference_key">pref_out_of_stock_limit</xliff:g></string>
     <string name="pref_out_of_stock_limit_default"><xliff:g id="preference_default">0</xliff:g></string>
