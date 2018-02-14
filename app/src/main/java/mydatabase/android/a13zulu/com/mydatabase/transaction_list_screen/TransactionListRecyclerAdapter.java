@@ -55,7 +55,7 @@ public class TransactionListRecyclerAdapter
             final ItemTransaction transaction = mItemTransactions.get(position);
 
             holder.storageName.setText(transaction.getTransactionItem().getItemStorageRoom().getName());
-            holder.itemName.setText(transaction.getTransactionItem().getItemName());
+            holder.itemName.setText(Utils.fitStringIntoTextView(transaction.getTransactionItem().getItemName()));
             holder.date.setText(Utils.formatDate(transaction.getTransactionDate()));
             holder.amount.setText(String.valueOf(transaction.getQuantity()));
             holder.remaining.setText(String.valueOf(transaction.getRemainingQuantity()));

@@ -3,6 +3,7 @@ package mydatabase.android.a13zulu.com.mydatabase.transaction_list_screen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -92,10 +93,13 @@ public class TransactionListFragment extends Fragment implements TransactionList
 
         RecyclerView recyclerView = rootView.findViewById(R.id.frag_transaction_list_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        ConstraintLayout titlesConstraintLayout = rootView.findViewById(R.id.frag_transaction_list_constraint_layout);
 
         if(mItemAdapter!=null){
             Log.d(TAG, "onCreateView: Item Adapter attached");
             recyclerView.setAdapter(mItemAdapter);
+            titlesConstraintLayout.setVisibility(View.GONE);
+            getActivity().setTitle("Out of stock Items");
         }else{
             Log.d(TAG, "onCreateView: Transaction Adapter attached");
             recyclerView.setAdapter(mTransactionAdapter);
