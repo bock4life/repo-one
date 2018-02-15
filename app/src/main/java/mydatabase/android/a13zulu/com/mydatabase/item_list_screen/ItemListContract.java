@@ -19,6 +19,7 @@ public interface ItemListContract {
         void setLoadingIndicator(boolean active);
         void showItems(List<Item> items);
         void showAddItem(long storageId);
+        void showEditStorage(long storageId);
         void showItemDetailsUi(long storageId, String itemId);
         void showLoadingItemsError();
         void showNoItems();
@@ -31,6 +32,7 @@ public interface ItemListContract {
     interface UserActionListener extends BasePresenter {
         void result(int requestCode, int resultCode); //TODO implement
         void loadItems(boolean forceUpdate);
+        void editStorage();
         void addNewItem(); // opens blank AddEdit screen
         void openItemDetails(@NonNull Item requestedItem); // opens AddEditScreen with Item details
     }

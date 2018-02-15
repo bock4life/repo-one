@@ -14,6 +14,7 @@ import mydatabase.android.a13zulu.com.mydatabase.Utils.ActivityUtils;
 public class StorageAddEditActivity extends AppCompatActivity{
     private static final String TAG = "StorageAddEditActivity";
     public static final int REQUEST_ADD_STORAGE_ROOM = 2;
+    public static final int REQUEST_EDIT_STORAGE_ROOM = 3;
     //TODO finish
 
     private StorageAddEditPresenter mStorageAddEditPresenter;
@@ -33,6 +34,7 @@ public class StorageAddEditActivity extends AppCompatActivity{
         mFragment = (StorageAddEditFragment) getSupportFragmentManager().findFragmentById(R.id.storage_addedit_activity_content_frame);
 
         String storageId = getIntent().getStringExtra(StorageAddEditFragment.ARGUMENT_EDIT_STORAGE_ROOM_ID);
+
 
         if(mFragment == null){
             mFragment = StorageAddEditFragment.newInstance();

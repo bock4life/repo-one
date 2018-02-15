@@ -14,6 +14,7 @@ import mydatabase.android.a13zulu.com.mydatabase.data.Item;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsDataSource;
 import mydatabase.android.a13zulu.com.mydatabase.data.source.ItemsRepository;
 import mydatabase.android.a13zulu.com.mydatabase.item_addedit_screen.AddEditActivity;
+import mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen.StorageAddEditActivity;
 
 
 /**
@@ -56,9 +57,11 @@ public class ItemListPresenter implements ItemListContract.UserActionListener, D
                 Activity.RESULT_OK == resultCode) {
             mMainView.showSuccessfullySavedMessage();
             loadItems(true);
-        }else { //if (AddEditActivity.REQUEST_EDIT_ITEM == requestCode &&
-                //Activity.RESULT_OK == resultCode){ //TODO FIX
-            //loadItems(true);
+        }else if(StorageAddEditActivity.REQUEST_EDIT_STORAGE_ROOM == requestCode &&
+                Activity.RESULT_OK == resultCode){
+            //TODO show message that storage information was successfully updated
+            //TODO update Title with new storage name
+            loadItems(true);
         }
     }
 
@@ -66,6 +69,11 @@ public class ItemListPresenter implements ItemListContract.UserActionListener, D
     public void loadItems(boolean forceUpdate) {
         loadItems(forceUpdate || mFirstLoad, true);
         mFirstLoad = false;
+    }
+
+    @Override
+    public void editStorage() {
+        mMainView.showEditStorage(mStorageId);
     }
 
     /**

@@ -14,7 +14,7 @@ public interface StorageAddEditContract {
         void setStorageName(String storageName);
         void setStorageDescription(String storageDescription);
         void setBackground(int color);
-
+        void setTitle(String storageName);
     }
 
     interface UserActionListener extends BasePresenter {

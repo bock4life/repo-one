@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,7 @@ public class StorageAddEditFragment extends Fragment implements StorageAddEditCo
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO disable save button if some of the text fields are empty
               mPresenter.saveStorageRoom(mStorageName.getText().toString(), mStorageDescription.getText().toString(), selectedBackgroundColor);
             }
         });
@@ -106,6 +108,8 @@ public class StorageAddEditFragment extends Fragment implements StorageAddEditCo
         return color;
     }
 
+
+
     @Override
     public void setPresenter(StorageAddEditContract.UserActionListener presenter) {
         mPresenter = presenter;
@@ -134,5 +138,25 @@ public class StorageAddEditFragment extends Fragment implements StorageAddEditCo
     @Override
     public void setBackground(int color) {
         mLayout.setBackgroundColor(color);
+        Log.d(TAG, "setBackground: " + color);
+        Resources res = getResources();
+        if (color == res.getColor(R.color.color1)) {
+            mRadioGroup.check(R.id.frag_storage_addedit_color1);
+
+        } else if (color == res.getColor(R.color.color2)) {
+            mRadioGroup.check(R.id.frag_storage_addedit_color2);
+
+        } else if (color == res.getColor(R.color.color3)) {
+            mRadioGroup.check(R.id.frag_storage_addedit_color3);
+
+        } else if (color == res.getColor(R.color.color4)) {
+            mRadioGroup.check(R.id.frag_storage_addedit_color4);
+
+        }
+    }
+
+    @Override
+    public void setTitle(String storageName) {
+        getActivity().setTitle(storageName);
     }
 }

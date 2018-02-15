@@ -1,6 +1,8 @@
 package mydatabase.android.a13zulu.com.mydatabase.storage_add_edit_screen;
 
 
+import android.util.Log;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -43,7 +45,10 @@ public class StorageAddEditPresenter implements StorageAddEditContract.UserActio
 
     @Override
     public void start() {
-
+        if(!isNewStorage()){
+            Log.d(TAG, "start: called");
+            populateStorageRoom();
+        }
     }
 
     @Override
@@ -76,11 +81,22 @@ public class StorageAddEditPresenter implements StorageAddEditContract.UserActio
 
     @Override
     public void populateStorageRoom() {
-
+        Log.d(TAG, "populateStorageRoom: called");
+        if(isNewStorage()){
+            throw new RuntimeException("populateStorageRoom() was called but the storage is new");
+        }
+        mStorageRoomsRepo.getStorageRoom(Long.parseLong(mStorageId), this);
     }
 
     @Override
     public void onStorageRoomLoaded(StorageRoom storageRoom) {
+        mStorageAddEditView.setStorageName(storageRoom.getName());
+        mStorageAddEditView.setStorageDescription(storageRoom.getDescription());
+        mStorageAddEditView.setBackground(storageRoom.getBackgroundColor());
+        mStorageAddEditView.setTitle(storageRoom.getName());
+    }
 
+    private boolean isNewStorage(){
+        return mStorageId == null;
     }
 }
