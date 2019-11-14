@@ -4,4 +4,4 @@
 	storage rooms, transactions and quantities.
 
 	This is a hobby project created to practice MVP architecture pattern and 
-	relatively new object-oriented embedded database ObjectBox.
+	object-oriented embedded database ObjectBox.
